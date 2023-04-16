@@ -25,7 +25,8 @@ public class Vector extends Point {
      * @param p the Double3 object to create the Vector from
      */
     Vector(Double3 p) {
-        this(p.d1, p.d2, p.d3);
+        super(p);
+        if (xyz.equals(Double3.ZERO)) throw new IllegalArgumentException("The Vector (0,0,0) is illegal for use.");
     }
 
     /**
@@ -105,8 +106,8 @@ public class Vector extends Point {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Vector v)) return false;
-        return super.equals(v);
+        return o instanceof Vector v
+                && super.equals(v);
     }
 
     /**

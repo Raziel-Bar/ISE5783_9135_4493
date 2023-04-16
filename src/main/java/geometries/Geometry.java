@@ -8,9 +8,9 @@ import primitives.*;
 public interface Geometry {
 
     /**
-     * Returns the normal vector to the geometry object at the specified point.
+     * Returns the normal vector to the geometry object at the specified point on the surface of the object.
      *
-     * @param p The point on the geometry object.
+     * @param p The point on the geometry object surface.
      * @return The normal vector to the geometry object at the specified point.
      */
     public Vector getNormal(Point p);
