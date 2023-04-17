@@ -18,7 +18,7 @@ class VectorTest {
 
 
     /**
-     * Test method for {@link primitives.Vector#Vector(primitives.Point3D)}.
+     * Test method for {@link primitives.Vector#Vector(double, double, double)}.
      */
     @Test
     void testConstructor() {
@@ -81,7 +81,7 @@ class VectorTest {
 
         // =============== Boundary Values Tests ==================
         // TC2: Test for subtracting a zero vector
-        assertEquals(v1, v1.subtract(new point(0, 0, 0)), "ERROR: Subtracting a zero vector does not work correctly");
+        assertEquals(v1, v1.subtract(new Point(0, 0, 0)), "ERROR: Subtracting a zero vector does not work correctly");
 
         // =============== Boundary Values Tests ==================
         // TC3: Test for subtracting a vector from its opposite
