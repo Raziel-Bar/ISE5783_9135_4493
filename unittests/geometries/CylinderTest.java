@@ -5,8 +5,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CylinderTest {
+    @Test
+    void getHeight() {
+    }
 
     @Test
-    void getNormal() {
+    void testGetNormal() {
+
     }
 }
