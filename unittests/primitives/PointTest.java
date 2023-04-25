@@ -4,9 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
- // ask dan about align zero and stuff
 /**
  * Unit tests for primitives.Point class
+ *
+ * @author - Eliezer E. Segall & Raziel Barchichat
+ *
  */
 class PointTest {
     Point p1 = new Point(1, 1, 1);
@@ -21,7 +23,7 @@ class PointTest {
     void testAdd() {
         // =======Equivalence Partitions Tests=======
         // TC01: testing the adding of point and vector (simple test)
-        assertEquals(p0, p1.add(v1), "the adding does not work correctly");
+        assertEquals(p0, p1.add(v1), "Point testAdd() TC01 failed");
     }
 
     /**
@@ -31,11 +33,11 @@ class PointTest {
     void testSubtract() {
         // =======Equivalence Partitions Tests=======
         // TC01: testing the subtracting of point and vector (simple test)
-        assertEquals(new Vector(1,1,1), p2.subtract(p1), "the subtracting does not work correctly");
+        assertEquals(new Vector(1,1,1), p2.subtract(p1), "Point testSubtract() TC01 failed");
 
         // =======Boundary Values Tests=======
         // TC02: testing the subtracting of point and vector (same point)
-        assertThrows(IllegalArgumentException.class, () -> p1.subtract(p1), "The Vector (0,0,0) is illegal for use.");
+        assertThrows(IllegalArgumentException.class, () -> p1.subtract(p1), "Point testSubtract() TC02 failed");
 
 
     }
@@ -47,11 +49,11 @@ class PointTest {
     void testDistanceSquared() {
         // =======Equivalence Partitions Tests=======
         // TC01: testing if the distance between two points is correct (simple test)
-        assertEquals(3, p1.distanceSquared(p2), "ERROR: DistanceSquared doesn't work correctly");
+        assertEquals(3, p1.distanceSquared(p2), "Point testDistanceSquared() TC01 failed");
 
         //=============== Boundary Values Tests ==================
         // TC02: testing if the distance between two points is correct (same point)
-        assertEquals(0, p1.distanceSquared(p1), "ERROR: DistanceSquared doesn't work correctly");
+        assertEquals(0, p1.distanceSquared(p1), "Point testDistanceSquared() TC02 failed");
     }
 
     /**
@@ -61,10 +63,10 @@ class PointTest {
     void testDistance() {
         // =======Equivalence Partitions Tests=======
         // TC01: testing if the distance between two points is correct (simple test)
-        assertEquals(Math.sqrt(3), p1.distance(p2), "ERROR: DistanceSquared doesn't work correctly");
+        assertEquals(Math.sqrt(3), p1.distance(p2), "Point testDistance() TC01 failed");
 
         //=============== Boundary Values Tests ==================
         // TC02: testing if the distance between two points is correct (same point)
-        assertEquals(0, p1.distance(p1), "ERROR: DistanceSquared doesn't work correctly");
+        assertEquals(0, p1.distance(p1), "Point testDistance() TC02 failed");
     }
 }

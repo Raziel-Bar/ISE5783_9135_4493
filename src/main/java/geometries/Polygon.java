@@ -88,6 +88,6 @@ public class Polygon implements Geometry {
 
     @Override
     public Vector getNormal(Point point) {
-        return plane.getNormal();
+        return plane.getNormal(point);
     }
 }

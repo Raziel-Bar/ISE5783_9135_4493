@@ -40,7 +40,9 @@ public class Tube extends RadialGeometry {
      */
     @Override
     public Vector getNormal(Point p) {
-        return null;
+        double t = axisRay.getDir().dotProduct(p.subtract(axisRay.getP0())); // t is the distance from the axis ray's starting point to the point on the axis ray that is the closest to p
+        return t == 0 ? p.subtract(axisRay.getP0()).normalize() : // in case the closest point on the ray to p is the starting point of the ray
+                p.subtract(axisRay.getP0().add(axisRay.getDir().scale(t))).normalize(); // otherwise
     }
 
     /**

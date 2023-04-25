@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for primitives.Vector class
+ *
+ * @author - Eliezer E. Segall & Raziel Barchichat
+ *
  */
 class VectorTest {
 
@@ -23,11 +26,11 @@ class VectorTest {
     void testConstructor() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Test for creating a simple vector
-        assertDoesNotThrow(() -> new Vector(1, 2, 3), "Error: testConstructor() TC01 failed");
+        assertDoesNotThrow(() -> new Vector(1, 2, 3), "Vector testConstructor() TC01 failed");
 
         // =============== Boundary Values Tests ==================
         // TC02: Test for zero vector
-        assertThrows(IllegalArgumentException.class, () -> new Vector(0, 0, 0), "Error: testConstructor() TC02 failed");
+        assertThrows(IllegalArgumentException.class, () -> new Vector(0, 0, 0), "Vector testConstructor() TC02 failed");
     }
 
 
@@ -39,14 +42,14 @@ class VectorTest {
 
         // ============ Equivalence Partitions Tests ==============
         // TC01: Test for scaling a vector by a negative scalar
-        assertEquals(v2, v1.scale(-2), "Error: testScale() TC01 failed");
+        assertEquals(v2, v1.scale(-2), "Vector testScale() TC01 failed");
 
         // TC02: Test for scaling a vector by a positive scalar
-        assertEquals(v1, v1.scale(1), "Error: testScale() TC02 failed");
+        assertEquals(v1, v1.scale(1), "Vector testScale() TC02 failed");
 
         // =============== Boundary Values Tests ==================
         // TC2: Test for scaling a vector by zero
-        assertThrows(IllegalArgumentException.class, () -> v1.scale(0), "Error: testScale() TC03 failed");
+        assertThrows(IllegalArgumentException.class, () -> v1.scale(0), "Vector testScale() TC03 failed");
     }
 
     /**
@@ -56,11 +59,11 @@ class VectorTest {
     void testAdd() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Test for adding two vectors
-        assertEquals(v3, v1.add(v2), "Error: testAdd() TC01 failed");
+        assertEquals(v3, v1.add(v2), "Vector testAdd() TC01 failed");
 
         // =============== Boundary Values Tests ==================
         // TC2: Test for adding a vector to its opposite
-        assertThrows(IllegalArgumentException.class, () -> v1.add(v3), "Error: testAdd() TC02 failed");
+        assertThrows(IllegalArgumentException.class, () -> v1.add(v3), "Vector testAdd() TC02 failed");
     }
 
     /**
@@ -70,11 +73,11 @@ class VectorTest {
     void testSubtract() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Test for subtracting a simple point
-        assertEquals(v1, v3.subtract(p1), "Error: testSubtract() TC01 failed");
+        assertEquals(v1, v3.subtract(p1), "Vector testSubtract() TC01 failed");
 
         // =============== Boundary Values Tests ==================
         // TC2: Test for subtracting a vector from its opposite
-        assertThrows(IllegalArgumentException.class, () -> v2.subtract(p1), "Error: testSubtract() TC02 failed");
+        assertThrows(IllegalArgumentException.class, () -> v2.subtract(p1), "Vector testSubtract() TC02 failed");
     }
 
     /**
@@ -84,17 +87,17 @@ class VectorTest {
     void testDotProduct() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Test for a negative dot product of two vectors (obtuse angle)
-        assertEquals(-28, v1.dotProduct(v2), "Error: testDotProduct() TC01 failed");
+        assertEquals(-28, v1.dotProduct(v2), "Vector testDotProduct() TC01 failed");
 
         // TC02: Test for a positive dot product of two vectors (acute angle)
-        assertEquals(11, v1.dotProduct(new Vector(1, 2, 2)), "Error: testDotProduct() TC02 failed");
+        assertEquals(11, v1.dotProduct(new Vector(1, 2, 2)), "Vector testDotProduct() TC02 failed");
 
         // =============== Boundary Values Tests ==================
         // TC03: Test for dot product of orthogonal vectors (90 degrees)
-        assertEquals(0, v1.dotProduct(new Vector(1, 1, -1)), "Error: testDotProduct() TC03 failed");
+        assertEquals(0, v1.dotProduct(new Vector(1, 1, -1)), "Vector testDotProduct() TC03 failed");
 
         // TC04: Test for dot product of a vector with itself
-        assertEquals(14, v1.dotProduct(v1), "Error: testDotProduct() TC04 failed");
+        assertEquals(14, v1.dotProduct(v1), "Vector testDotProduct() TC04 failed");
     }
 
     /**
@@ -104,14 +107,14 @@ class VectorTest {
     void testCrossProduct() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Test for cross product of two vectors (angle is less than 180 degrees)
-        assertEquals(new Vector(0, 1, 0), v4.crossProduct(v5), "Error: testCrossProduct() TC01 failed");
+        assertEquals(new Vector(0, 1, 0), v4.crossProduct(v5), "Vector testCrossProduct() TC01 failed");
 
         // TC02: Test for cross product of two vectors (angle is greater than 180 degrees)
-        assertEquals(new Vector(0, -1, 0), v5.crossProduct(v4), "Error: testCrossProduct() TC02 failed");
+        assertEquals(new Vector(0, -1, 0), v5.crossProduct(v4), "Vector testCrossProduct() TC02 failed");
 
         // =============== Boundary Values Tests ==================
-        // TC2: Test for cross product of a vector with itself
-        assertThrows(IllegalArgumentException.class, () -> v1.crossProduct(v1), "ERROR: crossProduct() for parallel vectors does not throw an exception");
+        // TC03: Test for cross product of a vector with itself
+        assertThrows(IllegalArgumentException.class, () -> v1.crossProduct(v1), "Vector testCrossProduct() TC03 failed");
 
     }
 
@@ -122,9 +125,9 @@ class VectorTest {
     void testLengthSquared() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Test for lengthSquared of a vector
-        assertEquals(14, v1.lengthSquared(), "ERROR: lengthSquared() wrong value");
+        assertEquals(14, v1.lengthSquared(), "Vector testLengthSquared() TC01 failed");
         // TC02: Test for lengthSquared of a negative vector
-        assertEquals(14, v3.lengthSquared(), "ERROR: lengthSquared() wrong value");
+        assertEquals(14, v3.lengthSquared(), "Vector testLengthSquared() TC02 failed");
     }
 
     /**
@@ -134,9 +137,9 @@ class VectorTest {
     void testLength() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Test for lengthSquared of a vector
-        assertEquals(Math.sqrt(14), v1.length(), "ERROR: lengthSquared() wrong value");
+        assertEquals(Math.sqrt(14), v1.length(), "Vector testLength() TC01 failed");
         // TC02: Test for lengthSquared of a negative vector
-        assertEquals(Math.sqrt(14), v3.length(), "ERROR: lengthSquared() wrong value");
+        assertEquals(Math.sqrt(14), v3.length(), "Vector testLength() TC02 failed");
 
     }
 
@@ -147,8 +150,9 @@ class VectorTest {
     void testNormalize() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Test for normalize of a vector
-        assertEquals(new Vector(1 / Math.sqrt(14), 2 / Math.sqrt(14), 3 / Math.sqrt(14)), v1.normalize(), "ERROR: normalize() wrong value");
+        assertEquals(new Vector(1 / Math.sqrt(14), 2 / Math.sqrt(14), 3 / Math.sqrt(14)), v1.normalize(), "Vector testNormalize() TC01 failed");
+
         // TC02: Test for normalize of a negative vector
-        assertEquals(new Vector(-1 / Math.sqrt(14), -2 / Math.sqrt(14), -3 / Math.sqrt(14)), v3.normalize(), "ERROR: normalize() wrong value");
+        assertEquals(new Vector(-1 / Math.sqrt(14), -2 / Math.sqrt(14), -3 / Math.sqrt(14)), v3.normalize(), "Vector testNormalize() TC02 failed");
     }
 }

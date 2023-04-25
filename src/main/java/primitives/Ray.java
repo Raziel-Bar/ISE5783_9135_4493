@@ -29,6 +29,23 @@ public class Ray {
     }
 
     /**
+     * Returns the starting point of the ray.
+     * @return The starting point of the ray.
+     */
+    public Point getP0() {
+        return p0;
+    }
+
+    /**
+     * Returns the direction vector of the ray.
+     * @return The direction vector of the ray.
+     */
+    public Vector getDir() {
+        return dir;
+    }
+
+
+    /**
      * Returns whether the given object is equal to this Ray object.
      *
      * @param o The object to compare to this Ray object.
