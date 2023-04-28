@@ -1,5 +1,5 @@
 package geometries;
-
+// query: how to collapse all blocks? // answer: ctrl + shift + - // didn't work // /*/**/*/
 import org.junit.jupiter.api.Test;
 import primitives.*;
 import static org.junit.jupiter.api.Assertions.*;

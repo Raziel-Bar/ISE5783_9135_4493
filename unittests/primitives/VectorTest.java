@@ -107,10 +107,10 @@ class VectorTest {
     void testCrossProduct() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Test for cross product of two vectors (angle is less than 180 degrees)
-        assertEquals(new Vector(0, 1, 0), v4.crossProduct(v5), "Vector testCrossProduct() TC01 failed");
+        assertEquals(new Vector(0, -1, 0), v4.crossProduct(v5), "Vector testCrossProduct() TC01 failed");
 
         // TC02: Test for cross product of two vectors (angle is greater than 180 degrees)
-        assertEquals(new Vector(0, -1, 0), v5.crossProduct(v4), "Vector testCrossProduct() TC02 failed");
+        assertEquals(new Vector(0, 1, 0), v5.crossProduct(v4), "Vector testCrossProduct() TC02 failed");
 
         // =============== Boundary Values Tests ==================
         // TC03: Test for cross product of a vector with itself

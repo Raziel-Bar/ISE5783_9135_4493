@@ -25,27 +25,21 @@ public class Cylinder extends Tube {
     }
 
     /**
-     * Returns the height of the Cylinder object.
-     *
-     * @return The height of the Cylinder object.
-     */
-    public double getHeight() {
-        return height;
-    }
-
-    /**
      * Returns the normal vector to the Cylinder object at the specified point.
      *
      * @param p The point on the Cylinder object.
      * @return The normal vector to the Cylinder object at the specified point.
      */
     @Override
-    public Vector getNormal(Point p) { //NOT FINISHED
-       /* double t = axisRay.getDir().dotProduct(p.subtract(axisRay.getP0())); // t is the distance from the axis ray's starting point to the point on the axis ray that is the closest to p
+    public Vector getNormal(Point p) {
+        if (p.equals(axisRay.getP0())) // in case the point is the starting point of the axis ray
+            return axisRay.getDir().scale(-1);
+        if (p.equals(axisRay.getP0().add(axisRay.getDir().scale(height)))) // in case the point is the ending point of the axis ray
+            return axisRay.getDir();
+        double t = axisRay.getDir().dotProduct(p.subtract(axisRay.getP0())); // t is the distance from the axis ray's starting point to the point on the axis ray that is the closest to p
         return t == 0 ? axisRay.getDir().scale(-1) : // in case the closest point on the ray to p is the starting point of the ray
                 t == 3 ? axisRay.getDir() : // in case the closest point on the ray to p is the ending point of the ray
-                p.subtract(axisRay.getP0().add(axisRay.getDir().scale(t))).normalize(); // otherwise*/
-        return null;
+                p.subtract(axisRay.getP0().add(axisRay.getDir().scale(t))).normalize(); // otherwise
     }
 
     /**
