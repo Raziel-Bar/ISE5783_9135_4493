@@ -38,7 +38,7 @@ public class Cylinder extends Tube {
             return axisRay.getDir();
         double t = axisRay.getDir().dotProduct(p.subtract(axisRay.getP0())); // t is the distance from the axis ray's starting point to the point on the axis ray that is the closest to p
         return t == 0 ? axisRay.getDir().scale(-1) : // in case the closest point on the ray to p is the starting point of the ray
-                t == 3 ? axisRay.getDir() : // in case the closest point on the ray to p is the ending point of the ray
+                t == height ? axisRay.getDir() : // in case the closest point on the ray to p is the ending point of the ray
                 p.subtract(axisRay.getP0().add(axisRay.getDir().scale(t))).normalize(); // otherwise
     }
 
