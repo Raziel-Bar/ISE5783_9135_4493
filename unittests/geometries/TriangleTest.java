@@ -1,7 +1,7 @@
 package geometries;
-import primitives.*;
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import primitives.*;
 
 /**
  * Unit tests for geometries.Triangle class

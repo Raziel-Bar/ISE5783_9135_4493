@@ -1,9 +1,9 @@
 package geometries;
 
 import org.junit.jupiter.api.Test;
-import primitives.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import primitives.*;
 
 /**
  * Unit tests for geometries.Plane class
@@ -22,7 +22,7 @@ class PlaneTest {
         Point q1 = new Point(1, 0, 0);
         Point q2 = new Point(0, 1, 0);
         Point q3 = new Point(0, 0, 1);
-        try {
+        try { // assertdoesntthrow
             new Plane(q1, q2, q3);
         } catch (IllegalArgumentException e) {
             fail("Failed constructing a correct plane");
