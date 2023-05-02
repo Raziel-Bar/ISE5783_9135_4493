@@ -2,6 +2,8 @@ package geometries;
 
 import primitives.*;
 
+import static primitives.Util.isZero;
+
 /**
  * The Tube class represents a tube in 3D space, with a radius and an axis ray. It inherits from the RadialGeometry class.
  */
@@ -41,8 +43,8 @@ public class Tube extends RadialGeometry {
     @Override
     public Vector getNormal(Point p) {
         double t = axisRay.getDir().dotProduct(p.subtract(axisRay.getP0())); // t is the distance from the axis ray's starting point to the point on the axis ray that is the closest to p
-        return t == 0 ? p.subtract(axisRay.getP0()).normalize() : // in case the closest point on the ray to p is the starting point of the ray
-                p.subtract(axisRay.getP0().add(axisRay.getDir().scale(t))).normalize(); // otherwise
+        Point o = isZero(t) ? axisRay.getP0() : axisRay.getP0().add(axisRay.getDir().scale(t)); // in case the closest point on the ray to p is the starting point of the ray
+        return p.subtract(o).normalize(); // otherwise
     }
 
     /**

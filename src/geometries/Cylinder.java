@@ -2,6 +2,8 @@ package geometries;
 
 import primitives.*;
 
+import static primitives.Util.isZero;
+
 /**
  * The Cylinder class represents a cylinder in 3D space, with a radius, axis ray and height. It inherits from the Tube class.
  */
@@ -32,14 +34,13 @@ public class Cylinder extends Tube {
      */
     @Override
     public Vector getNormal(Point p) {
+        //refactor Point p0 =
         if (p.equals(axisRay.getP0())) // in case the point is the starting point of the axis ray
             return axisRay.getDir().scale(-1);
-        if (p.equals(axisRay.getP0().add(axisRay.getDir().scale(height)))) // in case the point is the ending point of the axis ray
-            return axisRay.getDir();
         double t = axisRay.getDir().dotProduct(p.subtract(axisRay.getP0())); // t is the distance from the axis ray's starting point to the point on the axis ray that is the closest to p
-        return t == 0 ? axisRay.getDir().scale(-1) : // in case the closest point on the ray to p is the starting point of the ray
-                t == height ? axisRay.getDir() : // in case the closest point on the ray to p is the ending point of the ray
-                p.subtract(axisRay.getP0().add(axisRay.getDir().scale(t))).normalize(); // otherwise
+        return isZero(t) ? axisRay.getDir().scale(-1) : // in case the closest point on the ray to p is the starting point of the ray
+                isZero(t - height) ? axisRay.getDir() : // in case the closest point on the ray to p is the ending point of the ray
+                super.getNormal(p); // otherwise
     }
 
     /**

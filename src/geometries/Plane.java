@@ -47,14 +47,8 @@ public class Plane implements Geometry {
         return normal;
     }
 
-    /**
-     * Returns the normal vector to the Plane object at the specified point.
-     *
-     * @param p The point on the Plane object.
-     * @return The normal vector to the Plane object at the specified point.
-     */
     @Override
     public Vector getNormal(Point p) {
-        return getNormal();
+        return normal;
     }
 }
