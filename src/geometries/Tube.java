@@ -2,6 +2,8 @@ package geometries;
 
 import primitives.*;
 
+import java.util.List;
+
 import static primitives.Util.isZero;
 
 /**
@@ -34,12 +36,6 @@ public class Tube extends RadialGeometry {
         return axisRay;
     }
 
-    /**
-     * Returns the normal vector to the Tube object at the specified point.
-     *
-     * @param p The point on the Tube object.
-     * @return The normal vector to the Tube object at the specified point.
-     */
     @Override
     public Vector getNormal(Point p) {
         double t = axisRay.getDir().dotProduct(p.subtract(axisRay.getP0())); // t is the distance from the axis ray's starting point to the point on the axis ray that is the closest to p
@@ -57,5 +53,10 @@ public class Tube extends RadialGeometry {
         return "Tube: " +
                 "axisRay= " + axisRay +
                 ", radius= " + radius;
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }

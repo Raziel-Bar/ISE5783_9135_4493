@@ -11,6 +11,16 @@ public class Point {
     final Double3 xyz;
 
     /**
+     * Returns the x coordinate of the point.
+     *
+     * @return The x coordinate of the point.
+     */
+    public double getX() {
+        return xyz.d1;
+    }
+
+
+    /**
      * Constructs a new Point object with the specified x, y, and z coordinates.
      *
      * @param x The x coordinate of the point.

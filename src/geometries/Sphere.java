@@ -2,6 +2,8 @@ package geometries;
 
 import primitives.*;
 
+import java.util.List;
+
 /**
  * The Sphere class represents a sphere in 3D space. It inherits from the RadialGeometry class.
  */
@@ -53,5 +55,10 @@ public class Sphere extends RadialGeometry {
         return "Sphere: " +
                 "center= " + center +
                 ", radius=" + radius;
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }

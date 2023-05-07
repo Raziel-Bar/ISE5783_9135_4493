@@ -28,4 +28,6 @@ class TriangleTest {
             assertEquals(0,  v3.dotProduct(v2) ,"Triangle getNormal() TC01.2 failed");
             assertEquals(1, v3.length(),  "Triangle getNormal() TC01.3 failed");
         }
+
+
 }
