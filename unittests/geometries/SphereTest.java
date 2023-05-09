@@ -96,7 +96,7 @@ class SphereTest {
         assertEquals(1, result.size(), "Wrong number of points");
         assertEquals(List.of(p1), result, "Line through O, ray from inside sphere");
 
-    // TC16: Ray starts at the center (1 points)
+    // TC16: Ray starts at the center (1 point)
         result = sphere2.findIntersections(new Ray(new Vector(1, 0, 0), new Point(2, 0, 0)));
         assertEquals(1, result.size(), "Wrong number of points");
         assertEquals(List.of(p1), result, "Line through O, ray from O");

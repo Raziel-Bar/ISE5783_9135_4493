@@ -19,6 +19,20 @@ public class Point {
         return xyz.d1;
     }
 
+    /**
+     * Returns the y coordinate of the point.
+     *
+     * @return The y coordinate of the point.
+     */
+    public double getY() { return xyz.d2; }
+
+    /**
+     * Returns the z coordinate of the point.
+     *
+     * @return The z coordinate of the point.
+     */
+    public double getZ() { return xyz.d3; }
+
 
     /**
      * Constructs a new Point object with the specified x, y, and z coordinates.

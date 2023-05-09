@@ -27,6 +27,11 @@ public class Ray {
         p0 = p;
         dir = v.normalize();
     }
+    // second constructor in case we want to change the order of the parameters
+    public Ray(Point p, Vector v) {
+        p0 = p;
+        dir = v.normalize();
+    }
 
     /**
      * Returns the starting point of the ray.
