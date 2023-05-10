@@ -24,11 +24,12 @@ public class Triangle extends Polygon {
 
     @Override
     public List<Point> findIntersections(Ray ray) {
-        if (plane.findIntersections(ray) == null) return null;
         List<Point> result = plane.findIntersections(ray);
-        Vector v1 = vertices.get(0).subtract(ray.getP0());
-        Vector v2 = vertices.get(1).subtract(ray.getP0());
-        Vector v3 = vertices.get(2).subtract(ray.getP0());
+        if (result == null) return null;
+        Point p = ray.getP0();
+        Vector v1 = vertices.get(0).subtract(p);
+        Vector v2 = vertices.get(1).subtract(p);
+        Vector v3 = vertices.get(2).subtract(p);
         Vector n1 = v1.crossProduct(v2).normalize();
         Vector n2 = v2.crossProduct(v3).normalize();
         Vector n3 = v3.crossProduct(v1).normalize();

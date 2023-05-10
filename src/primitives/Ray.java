@@ -42,6 +42,12 @@ public class Ray {
     }
 
     /**
+     * calculates the point we get when adding the dir vector to p0 scaled by t
+     * @return p0 + t * dir
+     */
+    public Point getPoint(double t){ return p0.add(dir.scale(t)); }
+
+    /**
      * Returns the direction vector of the ray.
      * @return The direction vector of the ray.
      */

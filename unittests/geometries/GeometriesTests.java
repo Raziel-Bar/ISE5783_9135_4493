@@ -23,12 +23,13 @@ public class GeometriesTests {
         assertNull(geometries.findIntersections(new Ray(new Point(-1, 0, 0), new Vector(-1, 0, 0))), "Wrong number of points");
 
         // TC03: All geometries intersect with the ray (4 points)
-        assertEquals(4, geometries.findIntersections(new Ray(new Point(-1, 0, 0), new Vector(1, 0, 0))).size(), "Wrong number of points");
+        assertEquals(4, geometries.findIntersections(new Ray(new Point(-1, -1, -1), new Vector(1, 1, 1))).size(), "Wrong number of points");
 
         // TC04: Only one geometry intersect with the ray (1 point)
         assertEquals(1, geometries.findIntersections(new Ray(new Point(0, 0, 2), new Vector(0, 0, -1))).size(), "Wrong number of points");
 
         // TC05: the geometries is empty (0 points)
+        geometries = new Geometries();
         assertNull(geometries.findIntersections(new Ray(new Point(0, 0, 2), new Vector(0, 0, -1))), "Wrong number of points");
     }
 }
