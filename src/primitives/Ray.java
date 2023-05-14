@@ -29,8 +29,7 @@ public class Ray {
     }
     // second constructor in case we want to change the order of the parameters
     public Ray(Point p, Vector v) {
-        p0 = p;
-        dir = v.normalize();
+        this(v, p);
     }
 
     /**
