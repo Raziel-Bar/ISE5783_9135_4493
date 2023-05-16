@@ -1,14 +1,20 @@
 package geometries;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import primitives.*;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 public class GeometriesTests {
-    
+
     /**
      * Test method for {@link geometries.Geometries#findIntersections(primitives.Ray)}.
      */
     @Test
-    void testFindIntersections() { //?????? check implementation of findIntersections!!!!!
+    void testFindIntersections() {
         // ============ Equivalence Partitions Tests ==============
         // TC01: Some of the geometries intersect with the ray but not all (2 points)
         Geometries geometries = new Geometries(

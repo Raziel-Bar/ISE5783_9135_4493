@@ -1,11 +1,13 @@
 package geometries;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-import primitives.*;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit tests for geometries.Plane class
@@ -61,7 +63,7 @@ class PlaneTest {
      */
     @Test
     void testFindIntersections() {
-        Plane p1 = new Plane(new Point(1, 0, 0), new Point(0,1,0), new Point(1, 1, 0)); // xy plane
+        Plane p1 = new Plane(new Point(1, 0, 0), new Point(0, 1, 0), new Point(1, 1, 0)); // xy plane
         // ============ Equivalence Partitions Tests ==============
         // In those cases, the ray is neither parallel nor orthogonal to the plane
         // TC01: Test for intersection with the plane (1 point)

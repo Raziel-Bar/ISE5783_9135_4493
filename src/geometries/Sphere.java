@@ -1,8 +1,12 @@
 package geometries;
 
-import primitives.*;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import java.util.List;
+
+import static primitives.Util.*;
 
 /**
  * The Sphere class represents a sphere in 3D space. It inherits from the RadialGeometry class.
@@ -30,6 +34,7 @@ public class Sphere extends RadialGeometry {
      *
      * @return The center point of the Sphere object.
      */
+    @SuppressWarnings("unused")
     public Point getCenter() {
         return center;
     }
@@ -59,28 +64,20 @@ public class Sphere extends RadialGeometry {
 
     @Override
     public List<Point> findIntersections(Ray ray) {
-        if(center.equals(ray.getP0()))
+        if (center.equals(ray.getP0()))
             return List.of(ray.getPoint(radius));
+
         Vector u = center.subtract(ray.getP0());
         double tm = ray.getDir().dotProduct(u);
-        double d = Math.sqrt(u.lengthSquared() - tm * tm);
-        if (d >= radius) return null;
-        double th = Math.sqrt(radius * radius - d * d);
-        double t1 = tm - th;
+        double dSquared = u.lengthSquared() - tm * tm;
+        double thSquared = radiusSquared - dSquared;
+        if (alignZero(thSquared) <= 0) return null;
+
+        double th = Math.sqrt(thSquared);
         double t2 = tm + th;
-        if (Util.alignZero(t1) > 0 && Util.alignZero(t2) > 0) {
-            Point p1 = ray.getPoint(t1);
-            Point p2 = ray.getPoint(t2);
-            return List.of(p1, p2);
-        }
-        if (Util.alignZero(t1) > 0) {
-            Point p1 = ray.getPoint(t1);
-            return List.of(p1);
-        }
-        if (Util.alignZero(t2) > 0) {
-            Point p2 = ray.getPoint(t2);
-            return List.of(p2);
-        }
-        return null;
+        if (alignZero(t2) <= 0) return null;
+
+        double t1 = tm - th;
+        return alignZero(t1) <= 0 ? List.of(ray.getPoint(t2)) : List.of(ray.getPoint(t1), ray.getPoint(t2));
     }
 }

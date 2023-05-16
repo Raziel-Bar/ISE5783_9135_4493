@@ -2,13 +2,13 @@ package primitives;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Unit tests for primitives.Point class
  *
  * @author - Eliezer E. Segall & Raziel Barchichat
- *
  */
 class PointTest {
     Point p1 = new Point(1, 1, 1);
@@ -33,7 +33,7 @@ class PointTest {
     void testSubtract() {
         // =======Equivalence Partitions Tests=======
         // TC01: testing the subtracting of point and vector (simple test)
-        assertEquals(new Vector(1,1,1), p2.subtract(p1), "Point testSubtract() TC01 failed");
+        assertEquals(new Vector(1, 1, 1), p2.subtract(p1), "Point testSubtract() TC01 failed");
 
         // =======Boundary Values Tests=======
         // TC02: testing the subtracting of point and vector (same point)

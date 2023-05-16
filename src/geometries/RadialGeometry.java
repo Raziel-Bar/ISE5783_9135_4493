@@ -1,9 +1,5 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
-
 /**
  * The RadialGeometry class is an abstract class that represents a geometry object with a radius property.
  * <p>
@@ -15,6 +11,10 @@ public abstract class RadialGeometry implements Geometry {
      * The radius of the RadialGeometry object.
      */
     protected final double radius;
+    /**
+     * The squared radius of the RadialGeometry object.
+     */
+    protected final double radiusSquared;
 
     /**
      * Constructs a new RadialGeometry object with the specified radius.
@@ -23,6 +23,7 @@ public abstract class RadialGeometry implements Geometry {
      */
     public RadialGeometry(double r) {
         radius = r;
+        radiusSquared = r * r;
     }
 
     /**
@@ -30,6 +31,7 @@ public abstract class RadialGeometry implements Geometry {
      *
      * @return The radius of the RadialGeometry object.
      */
+    @SuppressWarnings("unused")
     public double getRadius() {
         return radius;
     }

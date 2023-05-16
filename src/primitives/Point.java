@@ -1,8 +1,5 @@
 package primitives;
 
-import java.lang.Math;
-import java.util.Objects;
-
 /**
  * The Point class represents a point in 3D space with x, y, and z coordinates.
  */
@@ -24,14 +21,20 @@ public class Point {
      *
      * @return The y coordinate of the point.
      */
-    public double getY() { return xyz.d2; }
+    @SuppressWarnings("unused")
+    public double getY() {
+        return xyz.d2;
+    }
 
     /**
      * Returns the z coordinate of the point.
      *
      * @return The z coordinate of the point.
      */
-    public double getZ() { return xyz.d3; }
+    @SuppressWarnings("unused")
+    public double getZ() {
+        return xyz.d3;
+    }
 
 
     /**

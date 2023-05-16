@@ -1,6 +1,9 @@
 package renderer;
 
-import primitives.*;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Util;
+import primitives.Vector;
 
 /**
  * The Camera class represents a camera in 3D space.
@@ -9,19 +12,19 @@ public class Camera {
     /**
      * The position of the camera.
      */
-    private Point position;
+    private final Point position;
     /**
      * The vector that points to the up direction of the camera.
      */
-    private Vector vUp;
+    private final  Vector vUp;
     /**
      * The vector that points to the right direction of the camera.
      */
-    private Vector vRight;
+    private final  Vector vRight;
     /**
      * The vector that points to the front direction of the camera.
      */
-    private Vector vTo;
+    private final  Vector vTo;
     /**
      * The distance between the camera and the view plane.
      */
@@ -57,6 +60,7 @@ public class Camera {
      *
      * @return The position of the camera.
      */
+    @SuppressWarnings("unused")
     public Point getPosition() {
         return position;
     }
@@ -66,6 +70,7 @@ public class Camera {
      *
      * @return The vector that points to the up direction of the camera.
      */
+    @SuppressWarnings("unused")
     public Vector getvUp() {
         return vUp;
     }
@@ -75,6 +80,7 @@ public class Camera {
      *
      * @return The vector that points to the right direction of the camera
      */
+    @SuppressWarnings("unused")
     public Vector getvRight() {
         return vRight;
     }
@@ -84,6 +90,7 @@ public class Camera {
      *
      * @return The vector that points to the front direction of the camera.
      */
+    @SuppressWarnings("unused")
     public Vector getvTo() {
         return vTo;
     }
@@ -93,6 +100,7 @@ public class Camera {
      *
      * @return The distance between the camera and the view plane.
      */
+    @SuppressWarnings("unused")
     public double getDistance() {
         return distance;
     }
@@ -102,6 +110,7 @@ public class Camera {
      *
      * @return The width of the view plane.
      */
+    @SuppressWarnings("unused")
     public double getWidth() {
         return width;
     }
@@ -111,6 +120,7 @@ public class Camera {
      *
      * @return The height of the view plane.
      */
+    @SuppressWarnings("unused")
     public double getHeight() {
         return height;
     }
@@ -151,17 +161,16 @@ public class Camera {
      */
     public Ray constructRay(int nX, int nY, int j, int i) {
         Point pC = position.add(vTo.scale(distance));
+
         double rX = width / nX;
         double rY = height / nY;
         double xJ = (j - (nX - 1) / 2.0) * rX;
         double yI = (i - (nY - 1) / 2.0) * rY;
+
         Point pIJ = pC;
-        if (!Util.isZero(xJ)) {
-            pIJ = pIJ.add(vRight.scale(xJ));
-        }
-        if (!Util.isZero(yI)) {
-            pIJ = pIJ.add(vUp.scale(-yI));
-        }
+        if (!Util.isZero(xJ)) pIJ = pIJ.add(vRight.scale(xJ));
+        if (!Util.isZero(yI)) pIJ = pIJ.add(vUp.scale(-yI));
+
         Vector vIJ = pIJ.subtract(position).normalize();
         return new Ray(position, vIJ);
     }

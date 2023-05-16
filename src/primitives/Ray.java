@@ -2,6 +2,8 @@ package primitives;
 
 import java.util.Objects;
 
+import static primitives.Util.*;
+
 /**
  * The Ray class represents a ray in 3D space.
  */
@@ -27,6 +29,7 @@ public class Ray {
         p0 = p;
         dir = v.normalize();
     }
+
     // second constructor in case we want to change the order of the parameters
     public Ray(Point p, Vector v) {
         this(v, p);
@@ -34,6 +37,7 @@ public class Ray {
 
     /**
      * Returns the starting point of the ray.
+     *
      * @return The starting point of the ray.
      */
     public Point getP0() {
@@ -41,13 +45,17 @@ public class Ray {
     }
 
     /**
-     * calculates the point we get when adding the dir vector to p0 scaled by t
-     * @return p0 + t * dir
+     * calculates a point on the ray at a given distance from the head of the ray
+     * @param t the distance
+     * @return the point
      */
-    public Point getPoint(double t){ return p0.add(dir.scale(t)); }
+    public Point getPoint(double t) {
+        return isZero(t) ? p0 : p0.add(dir.scale(t));
+    }
 
     /**
      * Returns the direction vector of the ray.
+     *
      * @return The direction vector of the ray.
      */
     public Vector getDir() {

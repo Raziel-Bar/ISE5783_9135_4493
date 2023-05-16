@@ -1,12 +1,16 @@
 package geometries;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import primitives.*;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 /**
  * Unit tests for geometries.Cylinder class
  *
  * @author Eliezer E. Segall - Raziel Barchichat
- *
  */
 class CylinderTest {
     /**
@@ -37,9 +41,9 @@ class CylinderTest {
 
         // =============== Boundary Values Tests ==================
         // TC04: Test for getting a normal to a point on the cylinder's top base's center
-        assertEquals(c1.axisRay.getDir(), c1.getNormal(new Point(0,0,3)), "Cylinder getNormal() TC04 failed");
+        assertEquals(c1.axisRay.getDir(), c1.getNormal(new Point(0, 0, 3)), "Cylinder getNormal() TC04 failed");
 
         // TC05: Test for getting a normal to a point on the cylinder's bottom base's center
-        assertEquals(c1.axisRay.getDir().scale(-1), c1.getNormal(new Point(0,0,0)), "Cylinder getNormal() TC05 failed");
+        assertEquals(c1.axisRay.getDir().scale(-1), c1.getNormal(new Point(0, 0, 0)), "Cylinder getNormal() TC05 failed");
     }
 }
