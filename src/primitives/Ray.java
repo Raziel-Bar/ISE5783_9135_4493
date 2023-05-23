@@ -1,8 +1,9 @@
 package primitives;
 
+import java.util.List;
 import java.util.Objects;
 
-import static primitives.Util.*;
+import static primitives.Util.isZero;
 
 /**
  * The Ray class represents a ray in 3D space.
@@ -46,6 +47,7 @@ public class Ray {
 
     /**
      * calculates a point on the ray at a given distance from the head of the ray
+     *
      * @param t the distance
      * @return the point
      */
@@ -97,5 +99,21 @@ public class Ray {
         return "Ray: " +
                 "p0= " + p0 +
                 ", dir= " + dir;
+    }
+
+    public Point findClosestPoint(List<Point> points) {
+        if (points == null)
+            return null;
+
+        Point closestPoint = null;
+        double closestDistance = Double.POSITIVE_INFINITY;
+        for (Point point : points) {
+            double distance = point.distance(p0);
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestPoint = point;
+            }
+        }
+        return closestPoint;
     }
 }

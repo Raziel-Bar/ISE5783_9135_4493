@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Unit tests for primitives.Point class
  *
- * @author - Eliezer E. Segall & Raziel Barchichat
+ * @author - Eliezer E. Segall &amp; Raziel Barchichat
  */
 class PointTest {
     Point p1 = new Point(1, 1, 1);

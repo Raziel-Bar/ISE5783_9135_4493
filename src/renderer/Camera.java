@@ -1,9 +1,11 @@
 package renderer;
 
+import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
-import primitives.Util;
 import primitives.Vector;
+
+import static primitives.Util.isZero;
 
 /**
  * The Camera class represents a camera in 3D space.
@@ -16,15 +18,15 @@ public class Camera {
     /**
      * The vector that points to the up direction of the camera.
      */
-    private final  Vector vUp;
+    private final Vector vUp;
     /**
      * The vector that points to the right direction of the camera.
      */
-    private final  Vector vRight;
+    private final Vector vRight;
     /**
      * The vector that points to the front direction of the camera.
      */
-    private final  Vector vTo;
+    private final Vector vTo;
     /**
      * The distance between the camera and the view plane.
      */
@@ -39,19 +41,51 @@ public class Camera {
     private double height;
 
     /**
+     * The number of pixels per width.
+     */
+    private ImageWriter imageWriter;
+
+    /**
+     * The ray tracer base.
+     */
+    private RayTracerBase rayTracerBase;
+
+
+    /**
+     * sets the ray tracer base's scene
+     *
+     * @param rayTracerBase
+     * @return this camera
+     */
+    public Camera setRayTracer(RayTracerBase rayTracerBase) {
+        this.rayTracerBase = rayTracerBase;
+        return this;
+    }
+
+    /**
+     * sets the image writer
+     *
+     * @return This camera
+     */
+    public Camera setImageWriter(ImageWriter imageWriter) {
+        this.imageWriter = imageWriter;
+        return this;
+    }
+
+    /**
      * Constructs a new Camera object with the specified position, up vector, to vector, distance, width, and height.
      *
-     * @param _position The position of the camera.
-     * @param _vUp      The vector that points to the up direction of the camera.
-     * @param _vTo      The vector that points to the front direction of the camera.
+     * @param position The position of the camera.
+     * @param vUp      The vector that points to the up direction of the camera.
+     * @param vTo      The vector that points to the front direction of the camera.
      */
-    public Camera(Point _position, Vector _vTo, Vector _vUp) {
-        if (_vUp.dotProduct(_vTo) != 0) {
+    public Camera(Point position, Vector vTo, Vector vUp) {
+        if (!isZero(vUp.dotProduct(vTo)))
             throw new IllegalArgumentException("vUp and vTo must be orthogonal.");
-        }
-        this.position = _position;
-        this.vUp = _vUp.normalize();
-        this.vTo = _vTo.normalize();
+
+        this.position = position;
+        this.vUp = vUp.normalize();
+        this.vTo = vTo.normalize();
         this.vRight = this.vTo.crossProduct(this.vUp).normalize();
     }
 
@@ -71,7 +105,7 @@ public class Camera {
      * @return The vector that points to the up direction of the camera.
      */
     @SuppressWarnings("unused")
-    public Vector getvUp() {
+    public Vector getVUp() {
         return vUp;
     }
 
@@ -81,7 +115,7 @@ public class Camera {
      * @return The vector that points to the right direction of the camera
      */
     @SuppressWarnings("unused")
-    public Vector getvRight() {
+    public Vector getVRight() {
         return vRight;
     }
 
@@ -91,7 +125,7 @@ public class Camera {
      * @return The vector that points to the front direction of the camera.
      */
     @SuppressWarnings("unused")
-    public Vector getvTo() {
+    public Vector getVTo() {
         return vTo;
     }
 
@@ -168,11 +202,62 @@ public class Camera {
         double yI = (i - (nY - 1) / 2.0) * rY;
 
         Point pIJ = pC;
-        if (!Util.isZero(xJ)) pIJ = pIJ.add(vRight.scale(xJ));
-        if (!Util.isZero(yI)) pIJ = pIJ.add(vUp.scale(-yI));
+        if (!isZero(xJ)) pIJ = pIJ.add(vRight.scale(xJ));
+        if (!isZero(yI)) pIJ = pIJ.add(vUp.scale(-yI));
 
         Vector vIJ = pIJ.subtract(position).normalize();
         return new Ray(position, vIJ);
+    }
+
+    /**
+     * renders the image
+     */
+    public void renderImage() {
+        if (imageWriter == null) {
+            throw new IllegalStateException("Image writer not set.");
+        }
+        if (rayTracerBase == null) {
+            throw new IllegalStateException("Ray tracer base not set.");
+        }
+        int nX = imageWriter.getNx();
+        int nY = imageWriter.getNy();
+        for (int i = 0; i < nY; i++) {
+            for (int j = 0; j < nX; j++) {
+                Ray ray = constructRay(nX, nY, j, i);
+                imageWriter.writePixel(j, i, rayTracerBase.traceRay(ray));
+            }
+        }
+    }
+
+    /**
+     * prints a grid on the image
+     *
+     * @param interval the interval between the lines
+     * @param color    the color of the lines
+     */
+    public void printGrid(int interval, Color color) {
+        if (imageWriter == null) {
+            throw new IllegalStateException("Image writer not set.");
+        }
+        int nX = imageWriter.getNx();
+        int nY = imageWriter.getNy();
+        for (int i = 0; i < nY; i++) {
+            for (int j = 0; j < nX; j++) {
+                if (i % interval == 0 || j % interval == 0) {
+                    imageWriter.writePixel(j, i, color);
+                }
+            }
+        }
+    }
+
+    /**
+     * writes the image to the file
+     */
+    public void writeToImage() {
+        if (imageWriter == null) {
+            throw new IllegalStateException("Image writer not set.");
+        }
+        imageWriter.writeToImage();
     }
 
 }

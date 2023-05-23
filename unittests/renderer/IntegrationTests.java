@@ -58,7 +58,7 @@ public class IntegrationTests {
         LinkedList<Ray> rayList = constructPixelsRaysList(camera.setVPSize(3, 3), 3, 3);
 
         // TC01: Camera intersects 9 points with plane
-        Plane plane = new Plane(new Point(0, 0, -4), camera.getvTo());
+        Plane plane = new Plane(new Point(0, 0, -4), camera.getVTo());
         assertEquals(9, countIntersections(rayList, plane), "testCameraAndPlane TC01");
 
         // TC02: Camera rays intersects 9 points with plane

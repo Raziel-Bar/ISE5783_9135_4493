@@ -11,7 +11,7 @@ import static primitives.Util.isZero;
  * Testing Polygons
  *
  * @author Dan
- * modified by Eliezer E. Segall & Raziel Barchichat
+ * modified by Eliezer E. Segall &amp; Raziel Barchichat
  */
 public class PolygonTest {
 

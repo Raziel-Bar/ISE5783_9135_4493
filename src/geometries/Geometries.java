@@ -14,7 +14,7 @@ public class Geometries implements Intersectable {
     /**
      * A list of geometries.
      */
-    private final List<Intersectable> _geometries = new LinkedList<>();
+    private final List<Intersectable> geometries = new LinkedList<>();
 
     /**
      * empty constructor
@@ -38,7 +38,7 @@ public class Geometries implements Intersectable {
      * @param geometries
      */
     public void add(Intersectable... geometries) {
-        _geometries.addAll(List.of(geometries));
+        this.geometries.addAll(List.of(geometries));
     }
 
     /**
@@ -50,7 +50,7 @@ public class Geometries implements Intersectable {
     @Override
     public List<Point> findIntersections(Ray ray) {
         List<Point> intersections = null;
-        for (Intersectable geo : _geometries) {
+        for (Intersectable geo : geometries) {
             List<Point> tempIntersections = geo.findIntersections(ray);
             if (tempIntersections != null) {
                 if (intersections == null)

@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Unit tests for geometries.Tube class
  *
- * @author - Eliezer E. Segall & Raziel Barchichat
+ * @author - Eliezer E. Segall &amp; Raziel Barchichat
  */
 class TubeTest {
 

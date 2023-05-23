@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Unit tests for geometries.Plane class
  *
- * @author - Eliezer E. Segall & Raziel Barchichat
+ * @author - Eliezer E. Segall &amp; Raziel Barchichat
  */
 class PlaneTest {
 

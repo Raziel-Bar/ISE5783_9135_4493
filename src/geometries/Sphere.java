@@ -6,7 +6,7 @@ import primitives.Vector;
 
 import java.util.List;
 
-import static primitives.Util.*;
+import static primitives.Util.alignZero;
 
 /**
  * The Sphere class represents a sphere in 3D space. It inherits from the RadialGeometry class.
@@ -21,12 +21,12 @@ public class Sphere extends RadialGeometry {
     /**
      * Constructs a new Sphere object with the specified radius and center point.
      *
-     * @param r       The radius of the Sphere object.
-     * @param _center The center point of the Sphere object.
+     * @param r      The radius of the Sphere object.
+     * @param center The center point of the Sphere object.
      */
-    public Sphere(double r, Point _center) {
+    public Sphere(double r, Point center) {
         super(r);
-        this.center = _center;
+        this.center = center;
     }
 
     /**
