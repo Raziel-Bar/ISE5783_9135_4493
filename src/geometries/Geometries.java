@@ -17,35 +17,35 @@ public class Geometries implements Intersectable {
     private final List<Intersectable> geometries = new LinkedList<>();
 
     /**
-     * empty constructor
+     * Constructs an empty Geometries object.
      */
     public Geometries() {
     }
 
 
     /**
-     * constructor
+     * Constructs a Geometries object with the specified geometries.
      *
-     * @param geometries
+     * @param geometries The geometries to add to the list.
      */
     public Geometries(Intersectable... geometries) {
         add(geometries);
     }
 
     /**
-     * add geometries to the list
+     * Adds geometries to the list.
      *
-     * @param geometries
+     * @param geometries The geometries to add.
      */
     public void add(Intersectable... geometries) {
         this.geometries.addAll(List.of(geometries));
     }
 
     /**
-     * find intersections
+     * Finds intersections between the given ray and the geometries in the list.
      *
-     * @param ray
-     * @return list of intersections points with the ray and the geometries
+     * @param ray The ray to intersect with the geometries.
+     * @return A list of intersection points with the ray and the geometries.
      */
     @Override
     public List<Point> findIntersections(Ray ray) {

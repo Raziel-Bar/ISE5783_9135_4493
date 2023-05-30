@@ -7,6 +7,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+/**
+ * Unit tests for primitives.Ray class
+ */
 class RayTest {
 
     /**
@@ -35,6 +38,7 @@ class RayTest {
         // TC13: The point that was found is in the tail of the list
         assertEquals(new Point(2, 0, 0),
                 ray.findClosestPoint(List.of(new Point(8, 0, 0), new Point(5, 0, 0), new Point(2, 0, 0))), "The point is not close to the ray (tail test)");
+
 
     }
 }

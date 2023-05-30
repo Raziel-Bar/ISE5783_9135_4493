@@ -35,6 +35,9 @@ class TriangleTest {
         assertEquals(1, v3.length(), "Triangle getNormal() TC01.3 failed");
     }
 
+    /**
+     * Test method for {@link geometries.Triangle#findIntersections(Ray)}.
+     */
     @Test
     public void testFindIntersections() {
 

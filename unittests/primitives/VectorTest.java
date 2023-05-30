@@ -11,12 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class VectorTest {
 
-    Vector v1 = new Vector(1, 2, 3);
-    Vector v2 = new Vector(-2, -4, -6);
-    Vector v3 = new Vector(-1, -2, -3);
-    Vector v4 = new Vector(1, 0, 0);
-    Vector v5 = new Vector(1, 0, 1);
-    Point p1 = new Point(-2, -4, -6);
+    private  Vector v1 = new Vector(1, 2, 3);
+    private Vector v2 = new Vector(-2, -4, -6);
+    private Vector v3 = new Vector(-1, -2, -3);
+    private  Vector v4 = new Vector(1, 0, 0);
+    private  Vector v5 = new Vector(1, 0, 1);
+    private  Point p1 = new Point(-2, -4, -6);
 
     /**
      * Test method for {@link primitives.Vector#Vector(double, double, double)}.

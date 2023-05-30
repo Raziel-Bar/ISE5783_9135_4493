@@ -10,9 +10,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Testing Camera Class
  *
- * @author Dan
  */
 class CameraTest {
+
+    /**
+     * Test method for
+     * {@link renderer.Camera#Camera(Point, Vector, Vector)}.
+     */
     static final Point ZERO_POINT = new Point(0, 0, 0);
 
     /**

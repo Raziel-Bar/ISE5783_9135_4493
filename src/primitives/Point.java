@@ -5,6 +5,9 @@ package primitives;
  */
 public class Point {
 
+    /**
+     * The coordinates of the point.
+     */
     final Double3 xyz;
 
     /**

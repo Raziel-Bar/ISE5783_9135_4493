@@ -31,7 +31,12 @@ public class Ray {
         dir = v.normalize();
     }
 
-    // second constructor in case we want to change the order of the parameters
+    /**
+     * Constructs a new Ray object with the given direction and starting point.
+     *
+     * @param p The starting point of the ray.
+     * @param v The direction vector of the ray.
+     */
     public Ray(Point p, Vector v) {
         this(v, p);
     }
@@ -101,6 +106,12 @@ public class Ray {
                 ", dir= " + dir;
     }
 
+    /**
+     * Finds the closest point to the starting point of the ray from the given list of points.
+     *
+     * @param points The list of points to find the closest point to the starting point of the ray from.
+     * @return The closest point to the starting point of the ray from the given list of points.
+     */
     public Point findClosestPoint(List<Point> points) {
         if (points == null)
             return null;

@@ -5,6 +5,10 @@ import primitives.Point;
 import primitives.Ray;
 import scene.Scene;
 
+/**
+ * The RayTracerBasic class represents a basic implementation of a ray tracer.
+ * It extends the RayTracerBase class.
+ */
 public class RayTracerBasic extends RayTracerBase {
 
     /**
@@ -32,10 +36,12 @@ public class RayTracerBasic extends RayTracerBase {
         return calcColor(closestPoint);
     }
 
+
     /**
-     * TODO
-     * @param point
-     * @return
+     * Calculates the color of the given point.
+     *
+     * @param point The point to calculate the color in.
+     * @return The color of the given point.
      */
     private Color calcColor(Point point) {
         return scene.ambientLight.getIntensity();

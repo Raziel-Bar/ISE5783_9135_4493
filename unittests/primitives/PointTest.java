@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author - Eliezer E. Segall &amp; Raziel Barchichat
  */
 class PointTest {
-    Point p1 = new Point(1, 1, 1);
-    Point p2 = new Point(2, 2, 2);
-    Point p0 = new Point(0, 0, 0);
-    Vector v1 = new Vector(-1, -1, -1);
+   private Point p1 = new Point(1, 1, 1);
+    private Point p2 = new Point(2, 2, 2);
+    private  Point p0 = new Point(0, 0, 0);
+    private Vector v1 = new Vector(-1, -1, -1);
 
     /**
      * Test method for {@link primitives.Point#add(Vector)}

@@ -52,10 +52,10 @@ public class Camera {
 
 
     /**
-     * sets the ray tracer base's scene
+     * Sets the ray tracer base.
      *
-     * @param rayTracerBase
-     * @return this camera
+     * @param rayTracerBase The ray tracer base.
+     * @return The camera itself.
      */
     public Camera setRayTracer(RayTracerBase rayTracerBase) {
         this.rayTracerBase = rayTracerBase;
@@ -63,9 +63,10 @@ public class Camera {
     }
 
     /**
-     * sets the image writer
+     * Sets the image writer.
      *
-     * @return This camera
+     * @param imageWriter The image writer.
+     * @return The camera itself.
      */
     public Camera setImageWriter(ImageWriter imageWriter) {
         this.imageWriter = imageWriter;

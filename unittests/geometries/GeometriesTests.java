@@ -8,6 +8,9 @@ import primitives.Vector;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+/**
+ * Unit tests for geometries.Geometries class
+ */
 public class GeometriesTests {
 
     /**
