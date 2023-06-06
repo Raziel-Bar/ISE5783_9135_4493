@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class RayTest {
 
     /**
-     * Test method for
      * Test method for getting the closest point to ray point
      */
     @Test
@@ -38,7 +37,27 @@ class RayTest {
         // TC13: The point that was found is in the tail of the list
         assertEquals(new Point(2, 0, 0),
                 ray.findClosestPoint(List.of(new Point(8, 0, 0), new Point(5, 0, 0), new Point(2, 0, 0))), "The point is not close to the ray (tail test)");
+    }
 
+    /**
+     * Test method for getting the point on the ray
+     */
+    @Test
+    void getPoint() {
+        Ray ray = new Ray(new Point(1, 0, 0), new Vector(1, 0, 0));
 
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: point on positive side of the ray (t > 0)
+
+        assertEquals(new Point(3, 0, 0),
+                ray.getPoint(2), "ray.getPoint() TC01 failed");
+
+        // TC02: point on negative side of the ray (t < 0)
+        assertEquals(new Point(-1, 0, 0),
+                ray.getPoint(-2), "ray.getPoint() TC02 failed");
+
+        // =============== Boundary Values Tests ==================
+        // TC03: point is the ray head (t = 0)
+        assertEquals(new Point(1, 0, 0), ray.getPoint(0), "ray.getPoint() TC03 failed");
     }
 }
