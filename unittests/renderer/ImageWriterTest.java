@@ -10,8 +10,8 @@ public class ImageWriterTest {
 
     private static final int size = 800;
     private static final int ny = 500;
-    Color temp  = new Color(255, 0, 0);
-    Color temp2 = new Color(255, 255, 0);
+    private Color temp  = new Color(255, 0, 0);
+    private Color temp2 = new Color(255, 255, 0);
     /**
      * Test method for ImageWriter
      * Test for creating a simple image with pixel

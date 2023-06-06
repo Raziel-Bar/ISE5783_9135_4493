@@ -2,7 +2,7 @@ package primitives;
 
 import java.util.List;
 import java.util.Objects;
-
+import geometries.Intersectable.GeoPoint;
 import static primitives.Util.isZero;
 
 /**
@@ -113,16 +113,27 @@ public class Ray {
      * @return The closest point to the starting point of the ray from the given list of points.
      */
     public Point findClosestPoint(List<Point> points) {
-        if (points == null)
+        return points == null || points.isEmpty() ? null
+                : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+    }
+
+    /**
+     * Finds the closest GeoPoint to the starting point of the ray from the given list of GeoPoints.
+     *
+     * @param geoPoints The list of GeoPoints to find the closest GeoPoint to the starting point of the ray from.
+     * @return The closest GeoPoint to the starting point of the ray from the given list of GeoPoints.
+     */
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPoints) {
+        if (geoPoints == null)
             return null;
 
-        Point closestPoint = null;
+        GeoPoint closestPoint = null;
         double closestDistance = Double.POSITIVE_INFINITY;
-        for (Point point : points) {
-            double distance = point.distance(p0);
+        for (GeoPoint geoPoint : geoPoints) {
+            double distance = geoPoint.point.distance(p0);
             if (distance < closestDistance) {
                 closestDistance = distance;
-                closestPoint = point;
+                closestPoint = geoPoint;
             }
         }
         return closestPoint;

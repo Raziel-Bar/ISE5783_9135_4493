@@ -1,6 +1,5 @@
 package geometries;
 
-import primitives.Point;
 import primitives.Ray;
 
 import java.util.LinkedList;
@@ -10,7 +9,7 @@ import java.util.List;
  * The Geometries class represents a list of geometries.
  * It implements the Intersectable interface.
  */
-public class Geometries implements Intersectable {
+public class Geometries extends Intersectable {
     /**
      * A list of geometries.
      */
@@ -48,10 +47,10 @@ public class Geometries implements Intersectable {
      * @return A list of intersection points with the ray and the geometries.
      */
     @Override
-    public List<Point> findIntersections(Ray ray) {
-        List<Point> intersections = null;
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        List<GeoPoint> intersections = null;
         for (Intersectable geo : geometries) {
-            List<Point> tempIntersections = geo.findIntersections(ray);
+            List<GeoPoint> tempIntersections = geo.findGeoIntersections(ray);
             if (tempIntersections != null) {
                 if (intersections == null)
                     intersections = new LinkedList<>();

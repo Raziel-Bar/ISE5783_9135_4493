@@ -24,8 +24,8 @@ public class Triangle extends Polygon {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
-        List<Point> result = plane.findIntersections(ray);
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        List<GeoPoint> result = plane.findGeoIntersections(ray);
         if (result == null) return null;
 
         Point p = ray.getP0();
@@ -45,6 +45,9 @@ public class Triangle extends Polygon {
         double sign3 = alignZero(v.dotProduct(n3));
         if (sign1 * sign3 <= 0) return null;
 
+        for (GeoPoint geoPoint : result) {
+            geoPoint.geometry = this;
+        }
         return result;
     }
 }
