@@ -51,8 +51,8 @@ public class RayTracerBasic extends RayTracerBase {
     /**
      * Calculate the effects of lights
      *
-     * @param intersection
-     * @param ray
+     * @param intersection the intersection point
+     * @param ray         the ray
      * @return The color resulted by local effecrs calculation
      */
     private Color calcLocalEffects(GeoPoint intersection, Ray ray) {
@@ -81,10 +81,10 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      * Calculates diffusive light
-     * @param kd
-     * @param l
-     * @param n
-     * @param lightIntensity
+     * @param kd the diffusive coefficient
+     * @param l the light vector
+     * @param n the normal vector
+     * @param lightIntensity the light intensity
      * @return The color of diffusive effects
      */
     private Color calcDiffusive(Double3 kd, Vector l, Vector n, Color lightIntensity) {
@@ -96,12 +96,12 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      * Calculate specular light
-     * @param ks
-     * @param l
-     * @param n
-     * @param v
-     * @param nShininess
-     * @param lightIntensity
+     * @param ks the specular coefficient
+     * @param l the light vector
+     * @param n the normal vector
+     * @param v the view vector
+     * @param nShininess the shininess factor
+     * @param lightIntensity the light intensity
      * @return The color of specular reflection
      */
     private Color calcSpecular(Double3 ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
