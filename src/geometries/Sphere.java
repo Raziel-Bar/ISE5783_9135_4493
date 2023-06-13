@@ -30,6 +30,17 @@ public class Sphere extends RadialGeometry {
     }
 
     /**
+     * Constructs a new Sphere object with the specified radius and center point.
+     *
+     * @param r      The radius of the Sphere object.
+     * @param center The center point of the Sphere object.
+     */
+    public Sphere(Point center, double r) {
+        super(r);
+        this.center = center;
+    }
+
+    /**
      * Returns the center point of the Sphere object.
      *
      * @return The center point of the Sphere object.

@@ -21,6 +21,11 @@ public class Ray {
     final private Vector dir;
 
     /**
+     * Head of rays movement const
+     */
+    private static final double DELTA = 0.1;
+
+    /**
      * Constructs a new Ray object with the given direction and starting point.
      *
      * @param v The direction vector of the ray.
@@ -39,6 +44,19 @@ public class Ray {
      */
     public Ray(Point p, Vector v) {
         this(v, p);
+    }
+
+    /**
+     * Constructs a new Ray object with the given direction and starting point.
+     *
+     * @param vecDir The direction vector of the ray.
+     * @param p      The starting point of the ray.
+     * @param n      The normal vector of the ray.
+     */
+    public Ray(Vector vecDir, Point p , Vector n) {
+        dir = vecDir.normalize();
+        Vector delta = n.scale(Util.alignZero(n.dotProduct(dir) > 0 ? DELTA : -DELTA));
+        p0 = p.add(delta);
     }
 
     /**
