@@ -113,9 +113,13 @@ public class ReflectionRefractionTests {
 
     @Test
     public void sevenDragonBalls() {
-
         Camera camera = new Camera(new Point(0, -13, 20), new Vector(0, 1, -.5), new Vector(0, .5, 1))
                 .setVPSize(70, 70).setVPDistance(50);
+
+        double ballKs = 0.2;
+        double ballKd = 0.8;
+        double ballShininess = 60;
+        double ballKt = 0.5;
 
         scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), new Double3(0.15)));
 
@@ -153,6 +157,10 @@ public class ReflectionRefractionTests {
                         .setMaterial(new Material().setKD(0.5).setKS(0.5).setNShininess(60).setkT(0.5))
 
         );
+
+        scene.lights.add( //
+                new SpotLight(new Color(700, 400, 400), new Point(40, 40, 115), new Vector(-1, -1, -4)) //
+                        .setKL(4E-4).setKQ(2E-5));
 
         ImageWriter imageWriter = new ImageWriter("SevenDragonBalls", 800, 800);
         camera.setImageWriter(imageWriter)
