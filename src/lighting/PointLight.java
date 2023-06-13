@@ -11,9 +11,19 @@ public class PointLight extends Light implements LightSource{
     private Point position;
 
     /**
-     * The constant attenuation factors.
+     * The constant attenuation factor.
      */
-    private double kC = 1, kL = 0, kQ = 0;
+    private double kC = 1;
+
+    /**
+     * The linear attenuation factor.
+     */
+    private double kL = 0;
+
+    /**
+     * The quadratic attenuation factor.
+     */
+    private double  kQ = 0;
 
     /**
      * Constructor for the PointLight class.
