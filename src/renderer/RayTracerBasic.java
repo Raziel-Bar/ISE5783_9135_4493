@@ -1,15 +1,13 @@
 package renderer;
 
 import lighting.*;
-import geometries.Plane;
 import primitives.*;
 
 import static primitives.Util.*;
 
 import scene.Scene;
 import geometries.Intersectable.GeoPoint;
-
-import static java.awt.Color.*;
+import java.util.LinkedList;
 
 import java.util.List;
 
@@ -111,7 +109,6 @@ public class RayTracerBasic extends RayTracerBase {
      */
     private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k) {
         Color color = Color.BLACK;
-        Vector n = gp.geometry.getNormal(gp.point);
         Material material = gp.geometry.getMaterial();
 
         Double3 kkr = material.kR.product(k);
@@ -119,7 +116,7 @@ public class RayTracerBasic extends RayTracerBase {
             color = calcGlobalEffect(constructReflectedRay(gp.geometry.getNormal(gp.point), gp.point, ray), level, material.kR, kkr);
 
         Double3 kkt = material.kT.product(k);
-        ;
+
         if (!kkt.lowerThan(MIN_CALC_COLOR_K))
             color = color.add(calcGlobalEffect(constructRefractedRay(gp.geometry.getNormal(ray.getP0()), gp.point, ray), level, material.kT, kkt));
 
@@ -203,32 +200,40 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      * Checks if there is no shade between a point and a light source
+     * enhanced method: implemented soft shadows using super sampling
      *
      * @param ls       the light source
      * @param l        the vector from the point to the light source
      * @param n        the normal vector
      * @param geoPoint the point
-     * @return true if there is no shade, false otherwise
+     * @return the averaged ktr of all sample rays
      */
     private Double3 transparency(LightSource ls, Vector l, Vector n, GeoPoint geoPoint) {
-        Vector lightDirection = l.scale(-1); // from point to light source
-
-        Ray lightRay = new Ray(lightDirection, geoPoint.point, n);
-
-        List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay);
-        if (intersections == null)
-            return new Double3(1.0);
-
-        double lightDistance = ls.getDistance(geoPoint.point);
-        Double3 ktr = new Double3(1.0);
-        for (GeoPoint geop : intersections) {
-            if (Util.alignZero(geop.point.distance(geoPoint.point) - lightDistance) <= 0) {
-                ktr = ktr.product(geop.geometry.getMaterial().kT);
-                if (ktr.lowerThan(MIN_CALC_COLOR_K))
-                    return Double3.ZERO;
+        List<Point> targetAreaPoints = ls.getGridPoints(l);
+        // in case the light is directional, we simply add a point in the opposite direction, so we will do 1 check
+        // as we used to do (Directional light is NOT affected by super sampling)
+        if (targetAreaPoints == null){
+            targetAreaPoints = new LinkedList<>();
+            targetAreaPoints.add(geoPoint.point.add(l.scale(-300)));
+        }
+        Double3 ktr = Double3.ZERO;
+        int count = 0;
+        for (Point p : targetAreaPoints) {
+            List<GeoPoint> intersections = scene.geometries.findGeoIntersections(new Ray(p.subtract(geoPoint.point), geoPoint.point, n));
+            if (intersections == null) {
+                ktr = ktr.add(Double3.ONE);
+                count++;
+            } else {
+                double lightDistance = ls.getDistance(geoPoint.point);
+                for (GeoPoint geop : intersections) {
+                    if (Util.alignZero(geop.point.distance(geoPoint.point) - lightDistance) <= 0) {
+                        ktr = ktr.add(geop.geometry.getMaterial().kT);
+                        count++;
+                    }
+                }
             }
         }
-        return ktr;
+        return ktr.scale(1.0 / count);
     }
 
     /**
@@ -276,6 +281,7 @@ public class RayTracerBasic extends RayTracerBase {
      * @param gp    the intersection point
      * @return true if the point is shaded, false otherwise
      */
+    @SuppressWarnings("unused")
     private boolean unshaded(LightSource light, Vector l, Vector n, GeoPoint gp) {
         Vector lightDirection = l.scale(-1); // from point to light source
         Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);

@@ -4,13 +4,12 @@ import geometries.Plane;
 import geometries.Sphere;
 import geometries.Triangle;
 import lighting.AmbientLight;
-import lighting.SpotLight;
+import lighting.*;
 import org.junit.jupiter.api.Test;
 import primitives.*;
 import scene.Scene;
 
 import static java.awt.Color.*;
-import static java.awt.Color.ORANGE;
 
 /**
  * Tests for reflection and transparency functionality, test for partial
@@ -20,7 +19,7 @@ import static java.awt.Color.ORANGE;
  * @author dzilb
  */
 public class ReflectionRefractionTests {
-    private Scene scene = new Scene("Test scene");
+    private final Scene scene = new Scene("Test scene");
 
     /**
      * Produce a picture of a sphere lighted by a spot light
@@ -113,54 +112,100 @@ public class ReflectionRefractionTests {
 
     @Test
     public void sevenDragonBalls() {
-        Camera camera = new Camera(new Point(0, -13, 20), new Vector(0, 1, -.5), new Vector(0, .5, 1))
+        Camera camera = new Camera(new Point(0, -13, 26), new Vector(0, 1, -.5), new Vector(0, .5, 1))
                 .setVPSize(70, 70).setVPDistance(50);
 
-        double ballKs = 0.2;
-        double ballKd = 0.8;
-        double ballShininess = 60;
-        double ballKt = 0.5;
+        double ballKs = 0.5;
+        double ballKd = 0.5;
+        int ballShininess = 301;
+        double ballKt = .3;
+        Color ballColor = new Color(255,110,0);
 
-        scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), new Double3(0.15)));
+
+        scene.setAmbientLight(new AmbientLight(new Color(BLACK), new Double3(0.15)));
 
         scene.geometries.add(
                 //floor
-                new Plane(new Point(0, 0, -2), new Vector(0, 0, 1))
+                new Plane(new Point(0, 0, -2.5), new Vector(0, 0, 1))
                         .setEmission(new Color(BLACK))
-                        .setMaterial(new Material().setKD(0.8).setKS(0.2).setKR(0.1)),
+                        .setMaterial(new Material().setKD(0.9).setKS(0.1).setKR(0.05)),
 
                 //wall
-                new Plane(new Point(0, 30, 0), new Vector(0, 1, 0))
-                        .setEmission(new Color(WHITE))
-                        .setMaterial(new Material().setKR(1)),
+                new Plane(new Point(0, 70, 0), new Vector(0, 1, 0))
+                        .setEmission(new Color(BLACK))
+                        .setMaterial(new Material().setKD(0.9).setKS(0.1)),
 
                 new Sphere(new Point(0, 6, 0), 2)
-                        .setEmission(new Color(ORANGE))
-                        .setMaterial(new Material().setKD(0.8).setKS(0.2).setNShininess(60).setkT(0.5)),
+                        .setEmission(ballColor)
+                        .setMaterial(new Material().setKD(ballKd).setKS(ballKs).setNShininess(ballShininess).setkT(ballKt)),
+
+                new Triangle(new Point(0, 6, 0.5), new Point(-.5, 6, -.5), new Point(.5, 6, -.5))
+                        .setEmission(new Color(BLACK)),
+                new Triangle(new Point(0, 6, -0.75), new Point(.5, 6, .25), new Point(-.5, 6, .25))
+                        .setEmission(new Color(BLACK)),
+
+
                 new Sphere(new Point(0, 12, 0), 2)
-                        .setEmission(new Color(ORANGE))
-                        .setMaterial(new Material().setKD(0.8).setKS(0.2).setNShininess(60).setkT(0.5)),
+                        .setEmission(ballColor)
+                        .setMaterial(new Material().setKD(ballKd).setKS(ballKs).setNShininess(ballShininess).setkT(ballKt)),
+
+                new Triangle(new Point(0, 12, 0.5), new Point(-.5, 12, -.5), new Point(.5, 12, -.5))
+                        .setEmission(new Color(BLACK)),
+                new Triangle(new Point(0, 12, -0.75), new Point(.5, 12, .25), new Point(-.5, 12, .25))
+                        .setEmission(new Color(BLACK)),
+
+
                 new Sphere(new Point(0, 18, 0), 2)
-                        .setEmission(new Color(ORANGE))
-                        .setMaterial(new Material().setKD(0.8).setKS(0.2).setNShininess(60).setkT(0.5)),
+                        .setEmission(ballColor)
+                        .setMaterial(new Material().setKD(ballKd).setKS(ballKs).setNShininess(ballShininess).setkT(ballKt)),
+
+                new Triangle(new Point(0, 18, 0.5), new Point(-.5, 18, -.5), new Point(.5, 18, -.5))
+                        .setEmission(new Color(BLACK)),
+                new Triangle(new Point(0, 18, -0.75), new Point(.5, 18, .25), new Point(-.5, 18, .25))
+                        .setEmission(new Color(BLACK)),
+
+
                 new Sphere(new Point(-6, 9, 0), 2)
-                        .setEmission(new Color(ORANGE))
-                        .setMaterial(new Material().setKD(0.5).setKS(0.5).setNShininess(60).setkT(0.5)),
+                        .setEmission(ballColor)
+                        .setMaterial(new Material().setKD(ballKd).setKS(ballKs).setNShininess(ballShininess).setkT(ballKt)),
+                new Triangle(new Point(-6, 9, 0.5), new Point(-6.5, 9, -.5), new Point(-5.5, 9, -.5))
+                        .setEmission(new Color(BLACK)),
+                new Triangle(new Point(-6, 9, -0.75), new Point(-5.5, 9, .25), new Point(-6.5, 9, .25))
+                        .setEmission(new Color(BLACK)),
+
+
                 new Sphere(new Point(-6, 15, 0), 2)
-                        .setEmission(new Color(ORANGE))
-                        .setMaterial(new Material().setKD(0.5).setKS(0.5).setNShininess(60).setkT(0.5)),
+                        .setEmission(ballColor)
+                        .setMaterial(new Material().setKD(ballKd).setKS(ballKs).setNShininess(ballShininess).setkT(ballKt)),
+                new Triangle(new Point(-6, 15, 0.5), new Point(-6.5, 15, -.5), new Point(-5.5, 15, -.5))
+                        .setEmission(new Color(BLACK)),
+                new Triangle(new Point(-6, 15, -0.75), new Point(-5.5, 15, .25), new Point(-6.5, 15, .25))
+                        .setEmission(new Color(BLACK)),
+
                 new Sphere(new Point(6, 9, 0), 2)
-                        .setEmission(new Color(ORANGE))
-                        .setMaterial(new Material().setKD(0.5).setKS(0.5).setNShininess(60).setkT(0.5)),
+                        .setEmission(ballColor)
+                        .setMaterial(new Material().setKD(ballKd).setKS(ballKs).setNShininess(ballShininess).setkT(ballKt)),
+                new Triangle(new Point(6, 9, 0.5), new Point(5.5, 9, -.5), new Point(6.5, 9, -.5))
+                        .setEmission(new Color(BLACK)),
+                new Triangle(new Point(6, 9, -0.75), new Point(6.5, 9, .25), new Point(5.5, 9, .25))
+                        .setEmission(new Color(BLACK)),
+
                 new Sphere(new Point(6, 15, 0), 2)
-                        .setEmission(new Color(ORANGE))
-                        .setMaterial(new Material().setKD(0.5).setKS(0.5).setNShininess(60).setkT(0.5))
+                        .setEmission(ballColor)
+                        .setMaterial(new Material().setKD(ballKd).setKS(ballKs).setNShininess(ballShininess).setkT(ballKt)),
+                new Triangle(new Point(6, 15, 0.5), new Point(5.5, 15, -.5), new Point(6.5, 15, -.5))
+                        .setEmission(new Color(BLACK)),
+                new Triangle(new Point(6, 15, -0.75), new Point(6.5, 15, .25), new Point(5.5, 15, .25))
+                        .setEmission(new Color(BLACK))
 
         );
 
-        scene.lights.add( //
-                new SpotLight(new Color(700, 400, 400), new Point(40, 40, 115), new Vector(-1, -1, -4)) //
-                        .setKL(4E-4).setKQ(2E-5));
+        scene.lights.add(new SpotLight(new Color(145,50,115), new Point(30,-15,20), new Vector(-1, 1, -.5))
+                .setKL(0.01).setKQ(0.0001));
+        scene.lights.add(new SpotLight(new Color(0,200,30), new Point(-30,-15,20), new Vector(1, 1, -.5))
+                .setKL(0.01).setKQ(0.0008));
+        scene.lights.add(new PointLight(new Color(WHITE), new Point(0,12,0))
+                .setKL(0.1).setKQ(0.0001));
 
         ImageWriter imageWriter = new ImageWriter("SevenDragonBalls", 800, 800);
         camera.setImageWriter(imageWriter)

@@ -89,6 +89,8 @@ public class Sphere extends RadialGeometry {
         if (alignZero(t2) <= 0) return null;
 
         double t1 = tm - th;
-        return alignZero(t1) <= 0 ? List.of(new GeoPoint(this, ray.getPoint(t2))) : List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2)));
+        return alignZero(t1) <= 0 ? List.of(new GeoPoint(this, ray.getPoint(t2))) :
+                List.of(new GeoPoint(this, ray.getPoint(t1)),
+                        new GeoPoint(this, ray.getPoint(t2)));
     }
 }

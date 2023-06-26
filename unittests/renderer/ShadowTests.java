@@ -1,13 +1,12 @@
 package renderer;
+
 import org.junit.jupiter.api.Test;
 
 import static java.awt.Color.*;
 
-import renderer.ImageWriter;
 import lighting.*;
 import geometries.*;
 import primitives.*;
-import renderer.*;
 import scene.Scene;
 
 /**
@@ -16,13 +15,13 @@ import scene.Scene;
  * @author Dan
  */
 public class ShadowTests {
-    private Intersectable sphere = new Sphere(60d, new Point(0, 0, -200)) //
+    private final Intersectable sphere = new Sphere(60d, new Point(0, 0, -200)) //
             .setEmission(new Color(BLUE)) //
             .setMaterial(new Material().setKD(0.5).setKS(0.5).setNShininess(30));
-    private Material trMaterial = new Material().setKD(0.5).setKS(0.5).setNShininess(30);
+    private final Material trMaterial = new Material().setKD(0.5).setKS(0.5).setNShininess(30);
 
-    private Scene scene = new Scene("Test scene");
-    private Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+    private final Scene scene = new Scene("Test scene");
+    private final Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
             .setVPSize(200, 200).setVPDistance(1000) //
             .setRayTracer(new RayTracerBasic(scene));
 
@@ -107,10 +106,59 @@ public class ShadowTests {
                         .setMaterial(new Material().setKD(0.5).setKS(0.5).setNShininess(30)) //
         );
         scene.lights.add( //
-                new SpotLight(new Color(700, 400, 400), new Point(40, 40, 115), new Vector(-1, -1, -4)) //
+                new SpotLight(new Color(700, 400, 400), new Point(40, 40, 115), new Vector(-1, -1, -4), 5) //
                         .setKL(4E-4).setKQ(2E-5));
 
         camera.setImageWriter(new ImageWriter("shadowTrianglesSphere", 600, 600)) //
+                .renderImage();
+        camera.writeToImage();
+    }
+
+    /**
+     * Produce a picture of two triangles lighted by a spot light with a Sphere
+     * producing a SOFT shading
+     */
+    @Test
+    public void softShadowTrianglesSpherePoint() {
+        scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), new Double3(0.15)));
+
+        scene.geometries.add( //
+                new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135), new Point(75, 75, -150)) //
+                        .setMaterial(new Material().setKS(0.8).setNShininess(60)), //
+                new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150)) //
+                        .setMaterial(new Material().setKS(0.8).setNShininess(60)), //
+                new Sphere(30d, new Point(0, 0, -11)) //
+                        .setEmission(new Color(java.awt.Color.BLUE)) //
+                        .setMaterial(new Material().setKD(0.5).setKS(0.5).setNShininess(30)) //
+        );
+        scene.lights.add( //
+                new PointLight(new Color(700, 400, 400), new Point(40, 40, 115), 20.0)
+                        .setKL(4E-4).setKQ(2E-5));
+
+        camera.setImageWriter(new ImageWriter("softShadowTrianglesSpherePoint", 600, 600)) //
+                .renderImage();
+        camera.writeToImage();
+    }
+
+
+    @Test
+    public void softShadowTrianglesSphereSpot() {
+        scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), new Double3(0.15)));
+
+        scene.geometries.add( //
+                new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135), new Point(75, 75, -150)) //
+                        .setMaterial(new Material().setKS(0.8).setNShininess(60)), //
+                new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150)) //
+                        .setMaterial(new Material().setKS(0.8).setNShininess(60)), //
+                new Sphere(30d, new Point(0, 0, -11)) //
+                        .setEmission(new Color(java.awt.Color.BLUE)) //
+                        .setMaterial(new Material().setKD(0.5).setKS(0.5).setNShininess(30)) //
+        );
+        scene.lights.add( //
+                new SpotLight(new Color(500, 200, 200), new Point(40, 40, 115), new Vector(-40, -40, -126).normalize(), 20.0)
+                        .setKL(4E-4).setKQ(2E-5));
+
+        camera.setImageWriter(new ImageWriter("softShadowTrianglesSphereSpot", 600, 600)) //
                 .renderImage();
         camera.writeToImage();
     }

@@ -1,6 +1,6 @@
 package lighting;
 import primitives.*;
-
+import java.util.List;
 /**
  * The LightSource interface represents a light source in 3D space.
  */
@@ -11,7 +11,7 @@ public interface LightSource {
      * @param p The point at which the intensity of the light source is to be calculated.
      * @return The intensity of the light source at the specified point.
      */
-    public Color getIntensity(Point p);
+    Color getIntensity(Point p);
 
     /**
      * Returns the direction of the light source at the specified point.
@@ -19,7 +19,7 @@ public interface LightSource {
      * @param p The point at which the direction of the light source is to be calculated.
      * @return The direction of the light source at the specified point.
      */
-    public Vector getL(Point p);
+    Vector getL(Point p);
 
     /**
      * Returns the distance between the light source and the specified point.
@@ -27,5 +27,21 @@ public interface LightSource {
      * @param point The point at which the distance is to be calculated.
      * @return The distance between the light source and the specified point.
      */
-    public double getDistance(Point point);
+    double getDistance(Point point);
+
+    /**
+     * Returns the radius of the light source.
+     *
+     * @return The radius of the light source.
+     */
+    @SuppressWarnings("unused")
+    double getRadius();
+
+    /**
+     * returns the light object.
+     *
+     * @return the light object.
+     */
+    List<Point> getGridPoints(Vector l);
+
 }

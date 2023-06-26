@@ -1,6 +1,8 @@
 package lighting;
 import primitives.*;
 
+import java.util.List;
+
 /**
  * The PointLight class represents a directional light source in 3D space.
  */
@@ -8,7 +10,7 @@ public class DirectionalLight extends Light implements LightSource{
     /**
      * The direction of the light.
      */
-    private Vector direction;
+    private final Vector direction;
 
     /**
      * Constructor for the DirectionalLight class.
@@ -35,4 +37,12 @@ public class DirectionalLight extends Light implements LightSource{
     public double getDistance(Point point) {
         return Double.POSITIVE_INFINITY;
     }
+
+    @Override
+    public double getRadius() {
+        return Double.POSITIVE_INFINITY;
+    }
+
+    @Override
+    public List<Point> getGridPoints(Vector l) { return null; }
 }
