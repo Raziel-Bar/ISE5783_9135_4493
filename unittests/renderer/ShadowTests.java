@@ -106,7 +106,7 @@ public class ShadowTests {
                         .setMaterial(new Material().setKD(0.5).setKS(0.5).setNShininess(30)) //
         );
         scene.lights.add( //
-                new SpotLight(new Color(700, 400, 400), new Point(40, 40, 115), new Vector(-1, -1, -4), 5) //
+                new SpotLight(new Color(700, 400, 400), new Point(40, 40, 115), new Vector(-1, -1, -4)) //
                         .setKL(4E-4).setKQ(2E-5));
 
         camera.setImageWriter(new ImageWriter("shadowTrianglesSphere", 600, 600)) //

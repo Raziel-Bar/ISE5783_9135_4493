@@ -2,13 +2,10 @@ package renderer;
 
 import lighting.*;
 import primitives.*;
-
 import static primitives.Util.*;
-
 import scene.Scene;
 import geometries.Intersectable.GeoPoint;
 import java.util.LinkedList;
-
 import java.util.List;
 
 /**
@@ -116,7 +113,6 @@ public class RayTracerBasic extends RayTracerBase {
             color = calcGlobalEffect(constructReflectedRay(gp.geometry.getNormal(gp.point), gp.point, ray), level, material.kR, kkr);
 
         Double3 kkt = material.kT.product(k);
-
         if (!kkt.lowerThan(MIN_CALC_COLOR_K))
             color = color.add(calcGlobalEffect(constructRefractedRay(gp.geometry.getNormal(ray.getP0()), gp.point, ray), level, material.kT, kkt));
 
@@ -209,17 +205,19 @@ public class RayTracerBasic extends RayTracerBase {
      * @return the averaged ktr of all sample rays
      */
     private Double3 transparency(LightSource ls, Vector l, Vector n, GeoPoint geoPoint) {
+        Double3 ktr = Double3.ZERO;
+        int count = 0;
+
         List<Point> targetAreaPoints = ls.getGridPoints(l);
         // in case the light is directional, we simply add a point in the opposite direction, so we will do 1 check
         // as we used to do (Directional light is NOT affected by super sampling)
-        if (targetAreaPoints == null){
+        if (targetAreaPoints == null) {
             targetAreaPoints = new LinkedList<>();
-            targetAreaPoints.add(geoPoint.point.add(l.scale(-300)));
+            targetAreaPoints.add(geoPoint.point.add(l.scale(-1)));
         }
-        Double3 ktr = Double3.ZERO;
-        int count = 0;
+
         for (Point p : targetAreaPoints) {
-            List<GeoPoint> intersections = scene.geometries.findGeoIntersections(new Ray(p.subtract(geoPoint.point), geoPoint.point, n));
+            List<GeoPoint> intersections = scene.geometries.findGeoIntersections(new Ray(p.subtract(geoPoint.point).normalize(), geoPoint.point, n));
             if (intersections == null) {
                 ktr = ktr.add(Double3.ONE);
                 count++;
@@ -229,11 +227,16 @@ public class RayTracerBasic extends RayTracerBase {
                     if (Util.alignZero(geop.point.distance(geoPoint.point) - lightDistance) <= 0) {
                         ktr = ktr.add(geop.geometry.getMaterial().kT);
                         count++;
+                    } else {
+                        ktr = ktr.add(Double3.ONE);
+                        count++;
                     }
                 }
             }
+            //if (ktr.scale(1.0 / count).lowerThan(MIN_CALC_COLOR_K))
+            //    return Double3.ZERO;
         }
-        return ktr.scale(1.0 / count);
+        return ktr.scale(1.0 / count).lowerThan(MIN_CALC_COLOR_K) ? Double3.ZERO : ktr.scale(1.0 / count);
     }
 
     /**
