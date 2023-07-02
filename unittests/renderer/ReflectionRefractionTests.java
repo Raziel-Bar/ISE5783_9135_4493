@@ -205,7 +205,7 @@ public class ReflectionRefractionTests {
                 .setKL(0.01).setKQ(0.0001));
         scene.lights.add(new SpotLight(new Color(0,200,30), new Point(-30,-15,20), new Vector(1, 1, -.5), 3)
                 .setKL(0.01).setKQ(0.0008));
-        scene.lights.add(new PointLight(new Color(WHITE), new Point(0,12,0), 3)
+        scene.lights.add(new PointLight(new Color(WHITE), new Point(0,12,0), 2)
                 .setKL(0.1).setKQ(0.0001));
 
         ImageWriter imageWriter = new ImageWriter("SevenDragonBalls", 800, 800);
