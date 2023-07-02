@@ -11,7 +11,7 @@ public abstract class BlackBoard {
     /**
      * The number of cells in each row and column of the targetArea grid.
      */
-    private static final int MAX_CELLS = 20;
+    private static final int MAX_CELLS = 9;
 
     /**
      * getter for MAX_CELLS
