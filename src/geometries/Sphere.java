@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.BoundingBox;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -27,6 +28,19 @@ public class Sphere extends RadialGeometry {
     public Sphere(double r, Point center) {
         super(r);
         this.center = center;
+
+        double centerX = center.getX();
+        double centerY = center.getY();
+        double centerZ = center.getZ();
+
+        double minX = centerX - radius;
+        double minY = centerY - radius;
+        double minZ = centerZ - radius;
+        double maxX = centerX + radius;
+        double maxY = centerY + radius;
+        double maxZ = centerZ + radius;
+
+        this.boundingBox = new BoundingBox(new Point(minX, minY, minZ), new Point(maxX, maxY, maxZ));
     }
 
     /**
@@ -38,6 +52,19 @@ public class Sphere extends RadialGeometry {
     public Sphere(Point center, double r) {
         super(r);
         this.center = center;
+
+        double centerX = center.getX();
+        double centerY = center.getY();
+        double centerZ = center.getZ();
+
+        double minX = centerX - radius;
+        double minY = centerY - radius;
+        double minZ = centerZ - radius;
+        double maxX = centerX + radius;
+        double maxY = centerY + radius;
+        double maxZ = centerZ + radius;
+
+        this.boundingBox = new BoundingBox(new Point(minX, minY, minZ), new Point(maxX, maxY, maxZ));
     }
 
     /**

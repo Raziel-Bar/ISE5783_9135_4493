@@ -38,9 +38,10 @@ public interface LightSource {
     double getRadius();
 
     /**
-     * returns the light object.
+     * returns the grid points
      *
-     * @return the light object.
+     * @param l the vector from light center to the geoPoint
+     * @return the grid points list
      */
     List<Point> getGridPoints(Vector l);
 

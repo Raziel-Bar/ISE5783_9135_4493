@@ -233,8 +233,6 @@ public class RayTracerBasic extends RayTracerBase {
                     }
                 }
             }
-            //if (ktr.scale(1.0 / count).lowerThan(MIN_CALC_COLOR_K))
-            //    return Double3.ZERO;
         }
         return ktr.scale(1.0 / count).lowerThan(MIN_CALC_COLOR_K) ? Double3.ZERO : ktr.scale(1.0 / count);
     }
@@ -250,9 +248,7 @@ public class RayTracerBasic extends RayTracerBase {
      */
     private Color calcDiffusive(Double3 kd, Vector l, Vector n, Color lightIntensity) {
         double ln = Util.alignZero(l.dotProduct(n));
-        if (ln < 0)
-            ln = ln * -1;
-        return lightIntensity.scale(kd.scale(ln));
+        return lightIntensity.scale(kd.scale(ln < 0 ? -ln : ln));
     }
 
     /**
@@ -268,11 +264,8 @@ public class RayTracerBasic extends RayTracerBase {
      */
     private Color calcSpecular(Double3 ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
         Vector r = l.subtract(n.scale(l.dotProduct(n) * 2));
-        double vr = Util.alignZero(v.scale(-1).dotProduct(r));
-        if (vr < 0)
-            vr = 0;
-        vr = Math.pow(vr, nShininess);
-        return lightIntensity.scale(ks.scale(vr));
+        double vr = -Util.alignZero(v.dotProduct(r));
+        return vr <= 0 ? Color.BLACK : lightIntensity.scale(ks.scale(Math.pow(vr, nShininess)));
     }
 
     /**

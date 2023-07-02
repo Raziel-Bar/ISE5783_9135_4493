@@ -1,5 +1,7 @@
 package geometries;
 
+import primitives.BoundingBox;
+
 /**
  * The RadialGeometry class is an abstract class that represents a geometry object with a radius property.
  * <p>
@@ -15,6 +17,11 @@ public abstract class RadialGeometry extends Geometry {
      * The squared radius of the RadialGeometry object.
      */
     protected final double radiusSquared;
+
+    /**
+     * The bounding box of the geometry.
+     */
+    protected BoundingBox boundingBox;
 
     /**
      * Constructs a new RadialGeometry object with the specified radius.

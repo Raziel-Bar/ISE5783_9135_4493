@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.BoundingBox;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -25,6 +26,16 @@ public class Tube extends RadialGeometry {
     public Tube(double r, Ray axisRay) {
         super(r);
         this.axisRay = axisRay;
+
+        Point center = axisRay.getP0();
+        double minX = center.getX() - radius;
+        double minY = Double.NEGATIVE_INFINITY;
+        double minZ = center.getZ() - radius;
+        double maxX = center.getX() + radius;
+        double maxY = Double.POSITIVE_INFINITY;
+        double maxZ = center.getZ() + radius;
+
+        this.boundingBox = new BoundingBox(new Point(minX, minY, minZ), new Point(maxX, maxY, maxZ));
     }
 
     /**

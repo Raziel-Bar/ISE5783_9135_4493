@@ -1,9 +1,6 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Ray;
-import primitives.Util;
-import primitives.Vector;
+import primitives.*;
 
 import java.util.List;
 
@@ -41,6 +38,15 @@ public class Plane extends Geometry {
     public Plane(Point q1, Point q2, Point q3) {
         q0 = q1;
         normal = q1.subtract(q2).crossProduct(q1.subtract(q3)).normalize();
+
+        double minX = Double.NEGATIVE_INFINITY;
+        double minY = Double.NEGATIVE_INFINITY;
+        double minZ = Double.NEGATIVE_INFINITY;
+        double maxX = Double.POSITIVE_INFINITY;
+        double maxY = Double.POSITIVE_INFINITY;
+        double maxZ = Double.POSITIVE_INFINITY;
+
+        this.boundingBox = new BoundingBox(new Point(minX, minY, minZ), new Point(maxX, maxY, maxZ));
     }
 
     /**

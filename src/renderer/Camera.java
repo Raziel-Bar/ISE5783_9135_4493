@@ -4,6 +4,8 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.*;
 
 import static primitives.Util.isZero;
 
@@ -50,6 +52,29 @@ public class Camera {
      */
     private RayTracerBase rayTracerBase;
 
+    /**
+     * The executor service.
+     * Used for multithreading.
+     */
+    private ExecutorService executor;
+
+
+    /**
+     * sets the number of threads to be used for rendering
+     *
+     * @param threadsCount number of threads
+     * @return the camera itself to enable chaining of functions
+     */
+    public Camera setMultithreading(int threadsCount) {
+        if (threadsCount < 1)
+            throw new IllegalArgumentException("Multithreading must be at least 1");
+        else if (executor != null && !executor.isShutdown()) {
+            executor.shutdown();
+        }
+        executor = Executors.newFixedThreadPool(threadsCount);
+        return this;
+    }
+
 
     /**
      * Sets the ray tracer base.
@@ -88,6 +113,8 @@ public class Camera {
         this.vUp = vUp.normalize();
         this.vTo = vTo.normalize();
         this.vRight = this.vTo.crossProduct(this.vUp).normalize();
+        // Default value for executor is 1
+        executor = Executors.newFixedThreadPool(1);
     }
 
     /**
@@ -223,10 +250,21 @@ public class Camera {
         int nX = imageWriter.getNx();
         int nY = imageWriter.getNy();
         for (int i = 0; i < nY; i++) {
+            final int iFinal = i; //
             for (int j = 0; j < nX; j++) {
-                Ray ray = constructRay(nX, nY, j, i);
-                imageWriter.writePixel(j, i, rayTracerBase.traceRay(ray));
+                final int jFinal = j;
+                executor.execute(() -> {
+                        Ray ray = constructRay(nX, nY, jFinal, iFinal);
+                        Color color = rayTracerBase.traceRay(ray);
+                        imageWriter.writePixel(jFinal, iFinal, color);
+                });
             }
+        }
+        executor.shutdown();
+        try {
+            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -245,7 +283,7 @@ public class Camera {
         for (int i = 0; i < nY; i++) {
             for (int j = 0; j < nX; j++) {
                 if (i % interval == 0 || j % interval == 0) {
-                    imageWriter.writePixel(j, i, color);
+                        imageWriter.writePixel(j, i, color);
                 }
             }
         }

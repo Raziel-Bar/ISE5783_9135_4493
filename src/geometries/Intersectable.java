@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.BoundingBox;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -10,13 +11,16 @@ import java.util.List;
  * The Intersectable interface represents an intersectable object in 3D space.
  */
 public abstract class Intersectable {
+
+    protected boolean isBvH = true;
+
     /**
      * Returns a list of intersection points of the specified ray with the Intersectable object.
      *
      * @param ray The ray to intersect with the Intersectable object.
      * @return A list of intersection points of the specified ray with the Intersectable object.
      */
-    public List<Point> findIntersections(Ray ray){
+    public List<Point> findIntersections(Ray ray) {
         var geoList = findGeoIntersections(ray);
         return geoList == null ? null : geoList.stream().map(gp -> gp.point).toList();
     }
@@ -86,4 +90,11 @@ public abstract class Intersectable {
      * @return A list of intersection GeoPoints of the specified ray with the Intersectable object.
      */
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
+
+    /**
+     * Returns the bounding box of the Intersectable object.
+     *
+     * @return The bounding box of the Intersectable object.
+     */
+    public abstract BoundingBox getBoundingBox();
 }

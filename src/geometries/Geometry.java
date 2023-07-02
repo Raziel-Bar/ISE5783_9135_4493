@@ -13,6 +13,13 @@ public abstract class Geometry extends Intersectable {
     protected Color emission = Color.BLACK;
 
     /**
+     * The bounding box of the geometry.
+     */
+    protected BoundingBox boundingBox;
+
+
+
+    /**
      * The material of the geometry.
      */
     private Material material = new Material();
@@ -60,4 +67,7 @@ public abstract class Geometry extends Intersectable {
      * @return The normal vector to the geometry object at the specified point.
      */
     public abstract Vector getNormal(Point p);
+
+    @Override
+    public BoundingBox getBoundingBox() { return boundingBox; }
 }

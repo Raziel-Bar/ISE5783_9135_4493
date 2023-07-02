@@ -1,5 +1,6 @@
 package geometries;
 
+import primitives.BoundingBox;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
@@ -28,6 +29,17 @@ public class Cylinder extends Tube {
     public Cylinder(double r, Ray axisRay, double height) {
         super(r, axisRay);
         this.height = height;
+
+        Point center = axisRay.getP0();
+
+        double minX = center.getX() - radius;
+        double minY = center.getY() - (height / 2.0);
+        double minZ = center.getZ() - radius;
+        double maxX = center.getX() + radius;
+        double maxY = center.getY() + (height / 2.0);
+        double maxZ = center.getZ() + radius;
+
+        this.boundingBox = new BoundingBox(new Point(minX, minY, minZ), new Point(maxX, maxY, maxZ));
     }
 
     /**
