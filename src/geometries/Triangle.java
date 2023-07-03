@@ -25,6 +25,7 @@ public class Triangle extends Polygon {
 
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        if (isBvH && !boundingBox.intersectsWith(ray)) return null;
         List<GeoPoint> result = plane.findGeoIntersections(ray);
         if (result == null) return null;
 
