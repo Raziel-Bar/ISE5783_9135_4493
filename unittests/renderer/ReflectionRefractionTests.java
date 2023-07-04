@@ -4,7 +4,8 @@ import geometries.Plane;
 import geometries.Sphere;
 import geometries.Triangle;
 import lighting.AmbientLight;
-import lighting.*;
+import lighting.PointLight;
+import lighting.SpotLight;
 import org.junit.jupiter.api.Test;
 import primitives.*;
 import scene.Scene;
@@ -112,18 +113,12 @@ public class ReflectionRefractionTests {
 
     @Test
     public void sevenDragonBalls() {
-        Camera camera = new Camera(new Point(0, -13, 26), new Vector(0, 1, -.5), new Vector(0, .5, 1))
-                .setVPSize(70, 70).setVPDistance(50);
-        camera.setMultithreading(3);
-
+        // Build 3D model of the scene
         double ballKs = 0.5;
         double ballKd = 0.5;
         int ballShininess = 301;
         double ballKt = .3;
-        Color ballColor = new Color(255,110,0);
-
-
-        scene.setAmbientLight(new AmbientLight(new Color(BLACK), new Double3(0.15)));
+        Color ballColor = new Color(255, 110, 0);
 
         scene.geometries.add(
                 //floor
@@ -198,21 +193,26 @@ public class ReflectionRefractionTests {
                         .setEmission(new Color(BLACK)),
                 new Triangle(new Point(6, 15, -0.75), new Point(6.5, 15, .25), new Point(5.5, 15, .25))
                         .setEmission(new Color(BLACK))
-
         );
+        scene.geometries.buildTree();
 
-        scene.lights.add(new SpotLight(new Color(145,50,115), new Point(30,-15,20), new Vector(-1, 1, -.5), 3)
+        // Add light sources to the scene
+        scene.setAmbientLight(new AmbientLight(new Color(BLACK), new Double3(0.15)));
+        scene.lights.add(new SpotLight(new Color(145, 50, 115), new Point(30, -15, 20), new Vector(-1, 1, -.5), 3)
                 .setKL(0.01).setKQ(0.0001));
-        scene.lights.add(new SpotLight(new Color(0,200,30), new Point(-30,-15,20), new Vector(1, 1, -.5), 3)
+        scene.lights.add(new SpotLight(new Color(0, 200, 30), new Point(-30, -15, 20), new Vector(1, 1, -.5), 3)
                 .setKL(0.01).setKQ(0.0008));
-        scene.lights.add(new PointLight(new Color(WHITE), new Point(0,12,0), 2)
+        scene.lights.add(new PointLight(new Color(WHITE), new Point(0, 12, 0), 2)
                 .setKL(0.1).setKQ(0.0001));
 
-        ImageWriter imageWriter = new ImageWriter("SevenDragonBalls", 800, 800);
-        camera.setImageWriter(imageWriter)
+        // Build a camera and render the scene into a picture
+        new Camera(new Point(0, -13, 26), new Vector(0, 1, -.5), new Vector(0, .5, 1))
+                .setVPSize(70, 70).setVPDistance(50)
+                .setImageWriter(new ImageWriter("SevenDragonBalls", 800, 800))
                 .setRayTracer(new RayTracerBasic(scene))
-                .renderImage();
-        camera.writeToImage();
+                .setMultithreading(3)
+                .renderImage()
+                .writeToImage();
     }
 
 }

@@ -239,8 +239,9 @@ public class Camera {
 
     /**
      * renders the image
+     * @return  camera object itself
      */
-    public void renderImage() {
+    public Camera renderImage() {
         if (imageWriter == null) {
             throw new IllegalStateException("Image writer not set.");
         }
@@ -266,6 +267,7 @@ public class Camera {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return this;
     }
 
     /**
