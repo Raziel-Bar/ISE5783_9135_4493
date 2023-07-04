@@ -102,6 +102,7 @@ public class Sphere extends RadialGeometry {
 
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        if (isBvH && !boundingBox.intersectsWith(ray)) return null;
         if (center.equals(ray.getP0()))
             return List.of(new GeoPoint(this, ray.getPoint(radius)));
 
